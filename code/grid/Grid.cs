@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
+using System;
 using System.Collections.Generic;
 
 namespace GameOfLife
@@ -10,7 +11,7 @@ namespace GameOfLife
 	{
 
 		public bool Alive { get; set; } = false;
-		public Panel Panel { get; set; }
+		public Shadow Shadow { get; set; }
 
 	}
 
@@ -32,8 +33,8 @@ namespace GameOfLife
 	{
 
 		public static Vector2Int GridSize = new( 32, 32 );
-		private static Dictionary<Vector2Int, Cell> cells = new(); //TODO: Turn into Dictionary?
-		public static Panel Panel { get; set; }
+		private static Dictionary<Vector2Int, Cell> cells = new();
+		public static Panel CellPanel { get; set; }
 
 		static CellGrid()
 		{
@@ -76,8 +77,14 @@ namespace GameOfLife
 			if ( Host.IsClient )
 			{
 
-				Cell( x, y ).Panel.Style.BackgroundColor = state ? Color.White : Color.Black;
-				Cell( x, y ).Panel.Style.Dirty();
+				CellPanel.Style.BoxShadow[x * GridSize.y + y] = new Shadow 
+				{
+					OffsetX = Cell( x, y ).Shadow.OffsetX,
+					OffsetY = Cell( x, y ).Shadow.OffsetY,
+					Color = state ? Color.White : Color.Black
+				};
+
+				CellPanel.Style.Dirty();
 
 			}
 

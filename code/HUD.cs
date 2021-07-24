@@ -31,29 +31,37 @@ namespace GameOfLife
 			container.Style.BoxShadow = listtest;*/
 			container.Style.PixelSnap = 0;
 
+			var panel = container.Add.Panel();
+
+			panel.Style.Width = cellSize - border;
+			panel.Style.Height = cellSize - border;
+			panel.Style.BackgroundColor = Color.Transparent;
+			panel.Style.Position = PositionMode.Absolute;
+			panel.Style.Left = 0;
+			panel.Style.Top = 0;
+			panel.Style.PixelSnap = 0;
+
+			CellGrid.CellPanel = panel;
+
+			var shadowList = new ShadowList();
+
 			for ( int x = 0; x < CellGrid.GridSize.x; x++ )
 			{
 
-				for (int y = 0; y < CellGrid.GridSize.y; y++)
+				for ( int y = 0; y < CellGrid.GridSize.y; y++ )
 				{
 
-					var curCell = x * CellGrid.GridSize.x + y;
+					var shadow = new Shadow { OffsetX = x * cellSize + border, OffsetY = y * cellSize + border, Color = Color.Black };
 
-					var panel = container.Add.Panel();
+					CellGrid.Cell( x, y ).Shadow = shadow;
 
-					panel.Style.Width = cellSize - border;
-					panel.Style.Height = cellSize - border;
-					panel.Style.BackgroundColor = Color.Black;
-					panel.Style.Position = PositionMode.Absolute;
-					panel.Style.Left = x * cellSize + border;
-					panel.Style.Top = y * cellSize + border;
-					panel.Style.PixelSnap = 0;
-
-					CellGrid.Cell( x, y ).Panel = panel;
+					shadowList.Add( shadow );
 
 				}
 
 			}
+
+			panel.Style.BoxShadow = shadowList;
 
 		}
 
