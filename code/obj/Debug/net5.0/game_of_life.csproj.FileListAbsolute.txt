@@ -1,0 +1,14 @@
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\.intermediate\net5.0\game_of_life.deps.json
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\.intermediate\net5.0\game_of_life.dll
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\.intermediate\net5.0\ref\game_of_life.dll
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\.intermediate\net5.0\game_of_life.pdb
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\.intermediate\net5.0\game_of_life.xml
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\net5.0\game_of_life.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\net5.0\game_of_life.GeneratedMSBuildEditorConfig.editorconfig
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\net5.0\game_of_life.AssemblyInfoInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\net5.0\game_of_life.AssemblyInfo.cs
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\net5.0\game_of_life.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\net5.0\game_of_life.csproj.CopyComplete
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\net5.0\game_of_life.dll
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\net5.0\ref\game_of_life.dll
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\net5.0\game_of_life.pdb
