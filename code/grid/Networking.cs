@@ -31,6 +31,15 @@ namespace GameOfLife
 
 		}
 
+		[ServerCmd]
+		public static void NetworkPlay( bool isPlaying)
+		{
+
+			Playing = isPlaying;
+			BroadcastPlay( isPlaying );
+
+		}
+
 		//TODO: Broadcast next frame to others
 
 		[ClientRpc]
@@ -62,6 +71,14 @@ namespace GameOfLife
 				UpdateCell( posX, posY, true, false );
 
 			}
+
+		}
+
+		[ClientRpc]
+		public static void BroadcastPlay( bool isPlaying )
+		{
+
+			Playing = isPlaying;
 
 		}
 

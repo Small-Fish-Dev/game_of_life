@@ -104,11 +104,11 @@ namespace GameOfLife
 		{
 
 			var play = Add.Panel( "buttons" );
-			play.Add.Button( "▸", "play", () => { CellGrid.ClearGrid( true ); GameOfLife.GameHUD.Delete(); CellGrid.GridSize = new( CellGrid.GridSize.x - 1, CellGrid.GridSize.y - 1 ); CellGrid.BuildGrid( CellGrid.GridSize.x - 1, CellGrid.GridSize.y - 1 ); GameOfLife.GameHUD = new HUD(); } );
+			play.Add.Button( "▸", "play", () => { CellGrid.NetworkPlay( true ); CellGrid.Playing = true; PlaySound( "click2" ); } );
 
 			var stop = Add.Panel( "buttons" );
-			stop.Add.Button( "᱿", "stop", () => { CellGrid.ClearGrid( true ); GameOfLife.GameHUD.Delete(); CellGrid.GridSize = new( CellGrid.GridSize.x + 1, CellGrid.GridSize.y + 1 ); CellGrid.BuildGrid( CellGrid.GridSize.x + 1, CellGrid.GridSize.y + 1 );  GameOfLife.GameHUD = new HUD();  } );
-			//TODO: Make it work on server and fix that shit lmao!
+			stop.Add.Button( "᱿", "stop", () => { CellGrid.NetworkPlay( false ); CellGrid.Playing = false; PlaySound( "click2" ); } );
+
 			var next = Add.Panel( "buttons" );
 			next.Add.Button( "⇥", "next", () => { CellGrid.NetworkNext(); PlaySound( "click2" ); } );
 

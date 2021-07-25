@@ -31,10 +31,32 @@ namespace GameOfLife
 
 			ushort[] package = CellGrid.GeneratePackage();
 
-			if(package.Length > 0)
+			if ( package.Length > 0 )
 			{
 
 				CellGrid.BroadcastGrid( To.Single( client ), CellGrid.GeneratePackage() );
+
+			}
+
+		}
+
+		private float lastFrame = 0f;
+
+		[Event.Tick.Server]
+		public void OnTick()
+		{
+
+			if ( CellGrid.Playing )
+			{
+
+				if ( Time.Now >= lastFrame )
+				{
+
+					lastFrame = Time.Now + 0.01f;
+
+					CellGrid.NextFrame();
+
+				}
 
 			}
 

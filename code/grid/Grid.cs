@@ -36,6 +36,7 @@ namespace GameOfLife
 		private static Dictionary<Vector2Int, Cell> cells = new();
 		public static List<Vector2Int> ActiveCells = new();
 		public static Panel CellPanel { get; set; }
+		public static bool Playing { get; set; } = false;
 
 		static CellGrid()
 		{
