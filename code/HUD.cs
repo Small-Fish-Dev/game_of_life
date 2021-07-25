@@ -83,7 +83,7 @@ namespace GameOfLife
 				if( x >= 0 && x <= CellGrid.GridSize.x && y >= 0 && y <= CellGrid.GridSize.y )
 				{
 
-					CellGrid.UpdateCell( x, y, !CellGrid.Cell( x, y ).Alive, true );
+					var state = CellGrid.Cell( x, y ).Alive;				
 
 				}
 

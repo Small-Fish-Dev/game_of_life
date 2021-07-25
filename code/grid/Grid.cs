@@ -32,8 +32,9 @@ namespace GameOfLife
 	public static partial class CellGrid
 	{
 
-		public static Vector2Int GridSize = new( 32, 32 );
+		public static Vector2Int GridSize = new( 64, 64 );
 		private static Dictionary<Vector2Int, Cell> cells = new();
+		public static List<Vector2Int> ActiveCells = new();
 		public static Panel CellPanel { get; set; }
 
 		static CellGrid()
@@ -74,6 +75,19 @@ namespace GameOfLife
 
 			Cell( x, y ).Alive = state;
 
+			if ( state )
+			{
+
+				ActiveCells.Add( new Vector2Int( x, y ) );
+
+			}
+			else
+			{
+
+				ActiveCells.Remove( new Vector2Int( x, y ) );
+
+			}
+
 			if ( Host.IsClient )
 			{
 
@@ -111,17 +125,14 @@ namespace GameOfLife
 		public static void ClearGrid( bool networked )
 		{
 
-			for ( int x = 0; x < CellGrid.GridSize.x; x++ )
+			List<Vector2Int> oldGrid = new( ActiveCells );
+
+			oldGrid.ForEach( delegate ( Vector2Int pos )
 			{
 
-				for ( int y = 0; y < CellGrid.GridSize.y; y++ )
-				{
+				UpdateCell( pos.x, pos.y, false, false );
 
-					UpdateCell( x, y, false, false );
-
-				}
-
-			}
+			} );
 
 			if ( networked )
 			{
@@ -143,75 +154,47 @@ namespace GameOfLife
 
 		}
 
-		private static int CalcNeighbours( int xPos, int yPos )
-		{
-
-			int neighbours = 0;
-
-			for ( int x = -1; x <= 1; x++ )
-			{
-
-				for ( int y = -1; y <= 1; y++ )
-				{
-
-					int lookX = xPos + x;
-					int lookY = yPos + y;
-
-					if ( x == 0 && y == 0 ) continue;
-					//if ( lookX >= CellGrid.GridSize.x || lookX < 0 ) continue; // Uncomment these two to disable looping
-					//if ( lookY >= CellGrid.GridSize.y || lookY < 0 ) continue;
-					if ( lookX < 0 ) { lookX = CellGrid.GridSize.x - 1; }
-					if ( lookY < 0 ) { lookY = CellGrid.GridSize.y - 1; }
-					if ( lookX >= CellGrid.GridSize.x ) { lookX = 0; }
-					if ( lookY >= CellGrid.GridSize.y ) { lookY = 0; }
-
-
-					if ( Cell( lookX, lookY ).Alive )
-					{
-
-						neighbours++;
-
-					}
-
-				}
-
-			}
-
-			return neighbours;
-
-		}
-
 		public static void NextFrame()
 		{
 
 			Dictionary<Vector2Int, bool> newGeneration = new();
+			Dictionary<Vector2Int, int> neighbourCount = new();
 
-			for ( int x = 0; x < CellGrid.GridSize.x; x++ )
+			ActiveCells.ForEach( delegate ( Vector2Int pos )
 			{
 
-				for ( int y = 0; y < CellGrid.GridSize.y; y++ )
+				for ( int x = -1; x <= 1; x++ )
 				{
 
-					int neighbours = CalcNeighbours( x, y );
-
-					if( CellGrid.Cell( x, y ).Alive )
+					for ( int y = -1; y <= 1; y++ )
 					{
 
-						if( neighbours < 2 || neighbours > 3 )
+						var itself = false;
+
+						if ( x == 0 && y == 0 )
 						{
 
-							newGeneration.Add( new Vector2Int( x, y ), false );
+							itself = true;
 
 						}
 
-					}
-					else
-					{
+						var checkPos = new Vector2Int( pos.x + x, pos.y + y );
 
-						if( neighbours == 3 )
+						if ( checkPos.x < 0 ) { checkPos.x = CellGrid.GridSize.x - 1; }
+						if ( checkPos.y < 0 ) { checkPos.y = CellGrid.GridSize.y - 1; }
+						if ( checkPos.x >= CellGrid.GridSize.x ) { checkPos.x = 0; }
+						if ( checkPos.y >= CellGrid.GridSize.y ) { checkPos.y = 0; }
+
+						if ( neighbourCount.ContainsKey( checkPos ) )
 						{
 
-							newGeneration.Add( new Vector2Int( x, y ), true );
+							neighbourCount[checkPos] += itself ? 0 : 1;
+
+						}
+						else
+						{
+
+							neighbourCount.Add( checkPos, itself ? 0 : 1 );
 
 						}
 
@@ -219,7 +202,35 @@ namespace GameOfLife
 
 				}
 
-			}
+			} );
+
+			foreach ( KeyValuePair<Vector2Int, int> curCell in neighbourCount )
+			{
+
+				if ( CellGrid.Cell( curCell.Key.x, curCell.Key.y ).Alive )
+				{
+
+					if ( curCell.Value < 2 || curCell.Value > 3 )
+					{
+
+						newGeneration.Add( curCell.Key, false );
+
+					}
+
+				}
+				else
+				{
+
+					if ( curCell.Value == 3 )
+					{
+
+						newGeneration.Add( curCell.Key, true );
+
+					}
+
+				}
+
+			};
 
 			foreach ( KeyValuePair<Vector2Int, bool> newCell in newGeneration )
 			{
@@ -230,7 +241,7 @@ namespace GameOfLife
 
 		}
 
-		public static ushort[] GeneratePackage()
+		public static ushort[] GeneratePackage() // TODO: Use activeCells list
 		{
 
 			List<ushort> package = new();
