@@ -11,7 +11,7 @@ namespace GameOfLife
 	{
 
 		static float maxSize = Math.Min( Screen.Width, Screen.Height) * 0.7f; //TODO: Bigger screens make it overlap over buttons?
-		static int border = 2;
+		static int border = 1;
 		static Panel container;
 
 		float cellSize =  maxSize / Math.Max( CellGrid.GridSize.x, CellGrid.GridSize.y );
@@ -83,7 +83,9 @@ namespace GameOfLife
 				if( x >= 0 && x <= CellGrid.GridSize.x && y >= 0 && y <= CellGrid.GridSize.y )
 				{
 
-					var state = CellGrid.Cell( x, y ).Alive;				
+					var state = CellGrid.Cell( x, y ).Alive;
+
+					CellGrid.UpdateCell( x, y, !state, true );
 
 				}
 
