@@ -35,6 +35,7 @@ namespace GameOfLife
 
 			Title = Sidebar.Add.Panel( "title" );
 			Title.Add.Label( "Game of Life" );
+
 			Patterns = Sidebar.Add.Panel( "patterns" );
 			Chat = Sidebar.Add.Panel( "chat" );
 
