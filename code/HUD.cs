@@ -16,10 +16,15 @@ namespace GameOfLife
 
 		float cellSize =  maxSize / Math.Max( CellGrid.GridSize.x, CellGrid.GridSize.y );*/
 
+
+		// TODO: Get rid of useless shit that never gets used
+		// TODO: Build these panels separately (Ex. public Pattern() Add panel Add name etc...)
+
 		public Panel Sidebar { get; set; }
 		public Panel Title { get; set; }
 		public Panel Patterns { get; set; }
 		public Panel PatternsTitle { get; set; }
+		public Panel PatternContainer { get; set; }
 		public Panel Chat { get; set; }
 		public Panel Tools { get; set; }
 		public Panel Buttons { get; set; }
@@ -40,6 +45,13 @@ namespace GameOfLife
 			Patterns = Sidebar.Add.Panel( "patterns" );
 			PatternsTitle = Patterns.Add.Panel( "patternstitle" );
 			PatternsTitle.Add.Label( "Patterns" );
+			PatternContainer = Patterns.Add.Panel( "patterncontainer" );
+			var pan1 = PatternContainer.Add.Panel( "pattern" );
+			var pan1name = pan1.Add.Panel( "name" );
+			pan1name.Add.Label( "Glider" );
+
+			// TODO: God I'm so tired, please do not look at this
+
 			Chat = Sidebar.Add.Panel( "chat" );
 
 			var play = Tools.Add.Panel( "buttons" );
