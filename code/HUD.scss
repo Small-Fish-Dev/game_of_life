@@ -6,7 +6,7 @@ RootPanel {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: black;
+    background-color: #151515;
     pointer-events: all;
     flex-direction: row;
     justify-content: center;
@@ -14,12 +14,13 @@ RootPanel {
     align-items: center;
     align-content: stretch;
     flex-wrap: nowrap;
+    padding: 0px 50px 0px 50px;
 
     .sidebar {
         flex-direction: column;
         flex-grow: 0;
         flex-shrink: 0;
-        width: 690px;
+        width: 670px;
         justify-content: center;
         position: relative;
 
@@ -35,15 +36,32 @@ RootPanel {
                 font-size: 100px;
                 color: white;
             }
-
         }
 
         .patterns {
             flex-direction: row;
             flex-grow: 1;
             flex-shrink: 1;
-            border: 5px solid white;
-            border-radius: 30px 30px 0px 0px;
+            border: 3px solid white;
+            border-radius: 20px 20px 0px 0px;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: center;
+
+            .patternstitle {
+                width: 100%;
+                padding: 10px;
+                border-bottom: 2px solid white;
+                justify-content: center;
+                background-color: #1f1c2b;
+                border-radius: 20px 20px 0px 0px;
+
+                label {
+                    font-family: poxel-font;
+                    font-size: 40px;
+                    color: white;
+                }
+            }
         }
 
         .chat {
@@ -51,9 +69,9 @@ RootPanel {
             flex-grow: 0;
             flex-shrink: 1;
             height: 40%;
-            border: 5px solid white;
+            border: 3px solid white;
             border-top: 0px;
-            border-radius: 0px 0px 30px 30px;
+            border-radius: 0px 0px 20px 20px;
         }
     }
 
@@ -86,12 +104,12 @@ RootPanel {
             }
 
             &:hover {
-                background-color: gray;
+                background-color: #301B3F;
                 color: white;
             }
 
             &.active, &:active {
-                background-color: #0094ffaa;
+                background-color: #3C415C;
                 color: white;
             }
 
@@ -105,19 +123,18 @@ RootPanel {
         flex-grow: 0;
         flex-shrink: 1;
         aspect-ratio: 1;
-        width: 100%;
+        width: 55%;
         align-self: center;
-        background-color: gray;
+        background-color: #B4A5A5;
+        border: 3px solid white;
 
         .cell {
             background-color: none;
             aspect-ratio: 1;
-            width: 1.5%;
-            position: absolute;
+            width: 1.8%;
+            position: relative;
             left: 0px;
             top: 0px;
         }
-
     }
-
 }

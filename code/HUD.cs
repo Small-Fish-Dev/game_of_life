@@ -19,6 +19,7 @@ namespace GameOfLife
 		public Panel Sidebar { get; set; }
 		public Panel Title { get; set; }
 		public Panel Patterns { get; set; }
+		public Panel PatternsTitle { get; set; }
 		public Panel Chat { get; set; }
 		public Panel Tools { get; set; }
 		public Panel Buttons { get; set; }
@@ -37,6 +38,8 @@ namespace GameOfLife
 			Title.Add.Label( "Game of Life" );
 
 			Patterns = Sidebar.Add.Panel( "patterns" );
+			PatternsTitle = Patterns.Add.Panel( "patternstitle" );
+			PatternsTitle.Add.Label( "Patterns" );
 			Chat = Sidebar.Add.Panel( "chat" );
 
 			var play = Tools.Add.Panel( "buttons" );
@@ -51,15 +54,6 @@ namespace GameOfLife
 			var clear = Tools.Add.Panel( "buttons" );
 			clear.Add.Button( "⨯", "clear", () => { CellGrid.ClearGrid( true ); PlaySound( "click2" ); } );
 
-			//Grid.Style.Width = CellGrid.GridSize.x >= CellGrid.GridSize.y ? maxSize + border : cellSize * CellGrid.GridSize.x + border;
-			//Grid.Style.Height = CellGrid.GridSize.y >= CellGrid.GridSize.x ? maxSize + border: cellSize * CellGrid.GridSize.y + border;
-			/*var listtest = new ShadowList();
-			listtest.Add( new Shadow { OffsetX = 50f, OffsetY = 50f, Color = Color.White } ); //TODO: Record before and after you make the change, do not delete code, comment it out.
-			listtest.Add( new Shadow { OffsetX = 100f, OffsetY = 100f, Color = Color.Black } );
-			listtest.Add( new Shadow { OffsetX = 150f, OffsetY = 150f, Color = Color.White } );
-			listtest.Add( new Shadow { OffsetX = 200f, OffsetY = 200f, Color = Color.Black } );
-			listtest.Add( new Shadow { OffsetX = 250f, OffsetY = 250f, Color = Color.White } );
-			container.Style.BoxShadow = listtest;*/
 			Grid.Style.PixelSnap = 0;
 
 			var panel = Grid.Add.Panel( "cell" );
@@ -76,7 +70,7 @@ namespace GameOfLife
 				for ( int y = 0; y < CellGrid.GridSize.y; y++ )
 				{
 
-					var shadow = new Shadow { OffsetX = x * 18 , OffsetY = y * 18 , Color = Color.Black };
+					var shadow = new Shadow { OffsetX =  x * 19.9f , OffsetY = y * 19.9f, Color = Color.Black };
 
 					CellGrid.Cell( x, y ).Shadow = shadow;
 
@@ -96,14 +90,8 @@ namespace GameOfLife
 			if ( e.Button == "mouseleft" && e.Pressed == true )
 			{
 
-				var targetBox = Grid.Box;
-				var relativeMouseX = Mouse.Position.x - targetBox.Left;
-				var relativeMouseY = Mouse.Position.y - targetBox.Top;
-				var mousePosRelative = new Vector2( relativeMouseX, relativeMouseY );
-				var mousePosRelativeInUIPixels = mousePosRelative * ScaleFromScreen;
-
-				int x = (int)MathX.Floor( mousePosRelativeInUIPixels.x / 10 );
-				int y = (int)MathX.Floor( mousePosRelativeInUIPixels.y / 10 );
+				int x = (int)MathX.Floor( Grid.MousePosition.x / Grid.Box.Rect.width * 50 );
+				int y = (int)MathX.Floor( Grid.MousePosition.y / Grid.Box.Rect.width * 50 );
 
 				if( x >= 0 && x <= CellGrid.GridSize.x && y >= 0 && y <= CellGrid.GridSize.y )
 				{

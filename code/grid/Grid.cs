@@ -32,7 +32,7 @@ namespace GameOfLife
 	public static partial class CellGrid
 	{
 
-		public static Vector2Int GridSize = new( 64, 64 );
+		public static Vector2Int GridSize = new( 50, 50 );
 		private static Dictionary<Vector2Int, Cell> cells = new();
 		public static List<Vector2Int> ActiveCells = new();
 		public static Panel CellPanel { get; set; }
