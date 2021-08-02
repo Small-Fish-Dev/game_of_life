@@ -19,6 +19,7 @@ namespace GameOfLife
 
 		// TODO: Get rid of useless shit that never gets used
 		// TODO: Build these panels separately (Ex. public Pattern() Add panel Add name etc...)
+		// Structs for panels? Check out how the others do it, ok?
 
 		public Panel Sidebar { get; set; }
 		public Panel Title { get; set; }
@@ -46,9 +47,14 @@ namespace GameOfLife
 			PatternsTitle = Patterns.Add.Panel( "patternstitle" );
 			PatternsTitle.Add.Label( "Patterns" );
 			PatternContainer = Patterns.Add.Panel( "patterncontainer" );
-			var pan1 = PatternContainer.Add.Panel( "pattern" );
-			var pan1name = pan1.Add.Panel( "name" );
-			pan1name.Add.Label( "Glider" );
+
+			for( int i = 0; i < 100; i++)
+			{
+
+				PatternContainer.AddChild<PatternEntry>();
+
+
+			}
 
 			// TODO: God I'm so tired, please do not look at this
 
@@ -122,7 +128,23 @@ namespace GameOfLife
 
 	}
 
-	public partial class HUD : Sandbox.HudEntity<RootPanel>
+	public class PatternEntry : Panel
+	{
+
+		string[] names = new string[] { "Glider", "Glider Cannon", "Rose", "Bomb", "Block", "Wiggler", "Mark" };
+
+		public PatternEntry()
+		{
+
+			var panel = Add.Panel( "pattern" );
+			var entryName = panel.Add.Panel( "name" );
+			entryName.Add.Label( names[new Random().Int(0,6)] );
+
+		}
+
+	}
+
+		public partial class HUD : Sandbox.HudEntity<RootPanel>
 	{
 
 		public HUD()
