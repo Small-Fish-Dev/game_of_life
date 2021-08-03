@@ -10,17 +10,6 @@ namespace GameOfLife
 	public class GoLHUD : Panel
 	{
 
-		/*static float maxSize = Math.Min( Screen.Width, Screen.Height) * 0.7f; //TODO: Bigger screens make it overlap over buttons?
-		static int border = 1;
-		static Panel container;
-
-		float cellSize =  maxSize / Math.Max( CellGrid.GridSize.x, CellGrid.GridSize.y );*/
-
-
-		// TODO: Get rid of useless shit that never gets used
-		// TODO: Build these panels separately (Ex. public Pattern() Add panel Add name etc...)
-		// Structs for panels? Check out how the others do it, ok?
-
 		public Panel Sidebar { get; set; }
 		public Panel Title { get; set; }
 		public Panel Patterns { get; set; }
@@ -55,10 +44,6 @@ namespace GameOfLife
 
 
 			}
-
-			// TODO: God I'm so tired, please do not look at this
-
-			Chat = Sidebar.Add.Panel( "chat" );
 
 			var play = Tools.Add.Panel( "buttons" );
 			play.Add.Button( "▸", "play", () => { CellGrid.NetworkPlay( true ); CellGrid.Playing = true; PlaySound( "click2" ); } );
@@ -100,6 +85,8 @@ namespace GameOfLife
 
 			panel.Style.BoxShadow = shadowList;
 
+			Sidebar.Add.Panel( "chat" );
+
 		}
 
 		public override void OnButtonEvent( ButtonEvent e )
@@ -138,13 +125,14 @@ namespace GameOfLife
 
 			var panel = Add.Panel( "pattern" );
 			var entryName = panel.Add.Panel( "name" );
-			entryName.Add.Label( names[new Random().Int(0,6)] );
+			entryName.Add.Label( names[new Random().Int( 0, 6 )] );
 
 		}
 
 	}
 
-		public partial class HUD : Sandbox.HudEntity<RootPanel>
+
+	public partial class HUD : Sandbox.HudEntity<RootPanel>
 	{
 
 		public HUD()
@@ -160,7 +148,5 @@ namespace GameOfLife
 		}
 
 	}
-
-
 
 }
