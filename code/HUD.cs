@@ -59,31 +59,7 @@ namespace GameOfLife
 
 			Grid.Style.PixelSnap = 0;
 
-			var panel = Grid.Add.Panel( "cell" );
-
-			panel.Style.PixelSnap = 0;
-
-			CellGrid.CellPanel = panel;
-
-			var shadowList = new ShadowList();
-
-			for ( int x = 0; x < CellGrid.GridSize.x; x++ )
-			{
-
-				for ( int y = 0; y < CellGrid.GridSize.y; y++ )
-				{
-
-					var shadow = new Shadow { OffsetX =  x * 19.9f , OffsetY = y * 19.9f, Color = Color.Black };
-
-					CellGrid.Cell( x, y ).Shadow = shadow;
-
-					shadowList.Add( shadow );
-
-				}
-
-			}
-
-			panel.Style.BoxShadow = shadowList;
+			Grid.AddChild<CellPanel>();
 
 			Sidebar.Add.Panel( "chat" );
 
@@ -110,6 +86,42 @@ namespace GameOfLife
 				PlaySound( "click1" );
 
 			}
+
+		}
+
+	}
+
+	public class CellPanel : Panel
+	{
+
+		public CellPanel()
+		{
+
+			var panel = Add.Panel( "cell" );
+
+			panel.Style.PixelSnap = 0;
+
+			CellGrid.CellPanel = panel;
+
+			var shadowList = new ShadowList();
+
+			for ( int x = 0; x < CellGrid.GridSize.x; x++ )
+			{
+
+				for ( int y = 0; y < CellGrid.GridSize.y; y++ )
+				{
+
+					var shadow = new Shadow { OffsetX = x * 19.35f, OffsetY = y * 19.35f, Color = Color.Black };
+
+					CellGrid.Cell( x, y ).Shadow = shadow;
+
+					shadowList.Add( shadow );
+
+				}
+
+			}
+
+			panel.Style.BoxShadow = shadowList;
 
 		}
 

@@ -20,7 +20,7 @@ RootPanel {
         flex-direction: column;
         flex-grow: 0;
         flex-shrink: 0;
-        width: 670px;
+        width: 660px;
         justify-content: center;
         position: relative;
 
@@ -150,18 +150,17 @@ RootPanel {
 
     .grid {
         flex-grow: 0;
-        flex-shrink: 1;
+        flex-shrink: 0;
         aspect-ratio: 1;
-        width: 55%;
+        height: 90%;
         align-self: center;
         background-color: #B4A5A5;
         border: 3px solid white;
 
         .cell {
             background-color: none;
+            width: 13%;
             aspect-ratio: 1;
-            width: 1.8%;
-            position: relative;
             left: 0px;
             top: 0px;
         }
