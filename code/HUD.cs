@@ -60,8 +60,8 @@ namespace GameOfLife
 			Grid.Style.PixelSnap = 0;
 
 			Grid.AddChild<CellPanel>();
-
-			Sidebar.Add.Panel( "chat" );
+			Chat = Sidebar.Add.Panel( "chat" );
+			Chat.AddChild<ChatBox>();
 
 		}
 
@@ -111,7 +111,7 @@ namespace GameOfLife
 				for ( int y = 0; y < CellGrid.GridSize.y; y++ )
 				{
 
-					var shadow = new Shadow { OffsetX = x * 19.35f, OffsetY = y * 19.35f, Color = Color.Black };
+					var shadow = new Shadow { OffsetX = x * 19.38f, OffsetY = y * 19.38f, Color = Color.Black };
 
 					CellGrid.Cell( x, y ).Shadow = shadow;
 
@@ -153,7 +153,7 @@ namespace GameOfLife
 
 			RootPanel.StyleSheet.Load( "HUD.scss" );
 
-			RootPanel.AddChild<ChatBox>();
+			
 			RootPanel.AddChild<GoLHUD>();
 
 
