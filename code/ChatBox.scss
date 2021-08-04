@@ -22,6 +22,7 @@
 
 	.chat_canvas {
 		flex-direction: column;
+		justify-content: flex-end;
 		align-items: flex-start;
 	}
 
@@ -35,7 +36,6 @@
 chatentry {
 	margin-bottom: 5px;
 	color: white;
-	transition: all 0.1s ease-out;
 	opacity: 1;
 	height: 26px;
 	flex-shrink: 0;
@@ -43,18 +43,8 @@ chatentry {
 	padding: 12px;
 	max-width: 100%;
 
-	image {
-		width: 32px;
-		height: 32px;
-		min-height: 32px;
-		border-radius: 100px;
-		position: absolute;
-		left: 6px;
-		top: 6px;
-	}
-
 	.name {
-		padding-right: 20px;
+		padding-right: 10px;
 		font-weight: 600;
 		font-size: 18px;
 		color: #c0fb2e;
@@ -73,7 +63,4 @@ chatentry {
 		display: none;
 	}
 
-	&.noavatar image {
-		display: none;
-	}
 }
