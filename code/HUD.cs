@@ -45,6 +45,8 @@ namespace GameOfLife
 
 			}
 
+			// BUG: Works only if you press the label, not the button itself
+
 			var play = Tools.Add.Panel( "buttons" );
 			play.Add.Button( "▸", "play", () => { CellGrid.NetworkPlay( true ); CellGrid.Playing = true; PlaySound( "click2" ); } );
 

@@ -37,10 +37,10 @@ chatentry {
 	margin-bottom: 5px;
 	color: white;
 	opacity: 1;
-	height: 26px;
+	min-height: 26px;
 	flex-shrink: 0;
 	flex-grow: 0;
-	padding: 12px;
+	padding: 3px 12px 3px 12px;
 	max-width: 100%;
 
 	.name {

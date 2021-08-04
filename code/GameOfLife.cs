@@ -52,7 +52,7 @@ namespace GameOfLife
 				if ( Time.Now >= lastFrame )
 				{
 
-					lastFrame = Time.Now + 0.01f;
+					lastFrame = Time.Now + 0.1f;
 
 					CellGrid.NextFrame();
 
