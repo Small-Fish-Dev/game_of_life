@@ -121,7 +121,6 @@ RootPanel {
             padding: 5px 3px 10px 5px;
             border-radius: 15px;
             width: 100px;
-            margin: 30px 10px 0px 10px;
             justify-content: center;
             text-align: center;
             mix-blend-mode: color;
@@ -131,6 +130,7 @@ RootPanel {
                 font-family: Arial;
                 font-weight: 700;
                 color: white;
+
             }
 
             &:hover {

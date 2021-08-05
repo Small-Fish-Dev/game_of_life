@@ -45,19 +45,13 @@ namespace GameOfLife
 
 			}
 
-			// BUG: Works only if you press the label, not the button itself
+			var play = Tools.Add.Button( "▸", "buttons", () => { CellGrid.NetworkPlay( true ); CellGrid.Playing = true; PlaySound( "click2" ); } );
 
-			var play = Tools.Add.Panel( "buttons" );
-			play.Add.Button( "▸", "play", () => { CellGrid.NetworkPlay( true ); CellGrid.Playing = true; PlaySound( "click2" ); } );
+			var stop = Tools.Add.Button( "᱿", "buttons", () => { CellGrid.NetworkPlay( false ); CellGrid.Playing = false; PlaySound( "click2" ); } );
 
-			var stop = Tools.Add.Panel( "buttons" );
-			stop.Add.Button( "᱿", "stop", () => { CellGrid.NetworkPlay( false ); CellGrid.Playing = false; PlaySound( "click2" ); } );
+			var next = Tools.Add.Button( "⇥", "buttons", () => { CellGrid.NetworkNext(); PlaySound( "click2" ); } );
 
-			var next = Tools.Add.Panel( "buttons" );
-			next.Add.Button( "⇥", "next", () => { CellGrid.NetworkNext(); PlaySound( "click2" ); } );
-
-			var clear = Tools.Add.Panel( "buttons" );
-			clear.Add.Button( "⨯", "clear", () => { CellGrid.ClearGrid( true ); PlaySound( "click2" ); } );
+			var clear = Tools.Add.Button( "⨯", "buttons", () => { CellGrid.ClearGrid( true ); PlaySound( "click2" ); } );
 
 			Grid.Style.PixelSnap = 0;
 
