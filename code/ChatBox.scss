@@ -4,13 +4,14 @@
 	width: 100%;
 	font-family: Poxel-Font;
 	font-size: 18px;
-	overflow: scroll;
 	justify-content: flex-end;
+	justify-items: flex-end;
+
 
 	textentry {
-		opacity: 0;
+		opacity: 0.4;
 		color: white;
-		padding: 10px;
+		padding: 15px 20px 15px 20px;
 		margin-top: 5px;
 		font-size: 18px;
 		flex-shrink: 0;
@@ -22,8 +23,8 @@
 
 	.chat_canvas {
 		flex-direction: column;
-		justify-content: flex-end;
-		align-items: flex-start;
+		justify-content: flex-start;
+		overflow: scroll;
 	}
 
 	&.open {
@@ -40,7 +41,7 @@ chatentry {
 	min-height: 26px;
 	flex-shrink: 0;
 	flex-grow: 0;
-	padding: 3px 12px 3px 12px;
+	padding: 3px 20px 3px 20px;
 	max-width: 100%;
 
 	.name {
@@ -48,14 +49,12 @@ chatentry {
 		font-weight: 600;
 		font-size: 18px;
 		color: #c0fb2e;
-		//	background-color: green;
 		flex-shrink: 0;
 	}
 
 	.message {
 		color: #ccc;
 		font-size: 18px;
-		//	background-color: red;
 		flex-grow: 1;
 	}
 
