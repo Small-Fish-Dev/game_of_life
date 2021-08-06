@@ -21,6 +21,11 @@ namespace GameOfLife
 
 			ClearGrid( true );
 
+			string message = $"{ConsoleSystem.Caller.Name} pressed [CLEAR] !";
+
+			Log.Info( message );
+			ChatBox.AddChatEntry( To.Everyone, "", message );
+
 		}
 
 		[ServerCmd]
@@ -28,6 +33,11 @@ namespace GameOfLife
 		{
 
 			NextFrame();
+
+			string message = $"{ConsoleSystem.Caller.Name} pressed [NEXT] !";
+
+			Log.Info( message );
+			ChatBox.AddChatEntry( To.Everyone, "", message );
 
 		}
 
@@ -37,6 +47,12 @@ namespace GameOfLife
 
 			Playing = isPlaying;
 			BroadcastPlay( isPlaying );
+
+
+			string message = $"{ConsoleSystem.Caller.Name} pressed " + ( isPlaying ? "[PLAY]" : "[STOP]" ) + " !" ;
+
+			Log.Info( message );
+			ChatBox.AddChatEntry( To.Everyone, "", message );
 
 		}
 
