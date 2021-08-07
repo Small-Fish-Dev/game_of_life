@@ -101,9 +101,6 @@ RootPanel {
             border: 3px solid white;
             border-top: 0px;
             border-radius: 0px 0px 20px 20px;
-
-
-            
         }
     }
 
@@ -134,7 +131,6 @@ RootPanel {
                 font-family: Arial;
                 font-weight: 700;
                 color: white;
-
             }
 
             &:hover {
@@ -159,7 +155,7 @@ RootPanel {
         aspect-ratio: 1;
         height: 90%;
         align-self: center;
-        background-color: #B4A5A5;
+        background-color: #202224;
         border: 3px solid white;
 
         .cell {
@@ -182,8 +178,8 @@ chatbox {
     justify-items: flex-end;
 
     .textentry {
-        opacity: 0.4;
-        color: white;
+        opacity: 0.5;
+        color: darkgray;
         padding: 15px 20px 15px 20px;
         margin-top: 5px;
         font-size: 18px;
@@ -204,6 +200,7 @@ chatbox {
     &.open {
         textentry {
             opacity: 1;
+            color: white;
         }
     }
 }

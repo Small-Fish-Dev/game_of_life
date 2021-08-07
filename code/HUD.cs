@@ -68,7 +68,7 @@ namespace GameOfLife
 			{
 
 				int x = (int)MathX.Floor( Grid.MousePosition.x / Grid.Box.Rect.width * 50 );
-				int y = (int)MathX.Floor( Grid.MousePosition.y / Grid.Box.Rect.width * 50 );
+				int y = (int)MathX.Floor( Grid.MousePosition.y / Grid.Box.Rect.height * 50 );
 
 				if( x >= 0 && x <= CellGrid.GridSize.x && y >= 0 && y <= CellGrid.GridSize.y )
 				{
@@ -107,7 +107,7 @@ namespace GameOfLife
 				for ( int y = 0; y < CellGrid.GridSize.y; y++ )
 				{
 
-					var shadow = new Shadow { OffsetX = x * 19.38f, OffsetY = y * 19.38f, Color = Color.Black };
+					var shadow = new Shadow { OffsetX = x * 19.24f + 3, OffsetY = y * 19.24f + 3, Color = Color.Black };
 
 					CellGrid.Cell( x, y ).Shadow = shadow;
 

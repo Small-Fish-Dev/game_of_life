@@ -13,6 +13,7 @@ namespace GameOfLife
 	{
 
 		public static HUD GameHUD;
+		public static List<string[]> ChatMessages = new();
 
 		public GameOfLife()
 		{
@@ -21,6 +22,8 @@ namespace GameOfLife
 			{
 
 				GameHUD = new HUD();
+
+				ChatBox.SayInfo( "Server has been started." );
 
 			}
 
@@ -37,6 +40,22 @@ namespace GameOfLife
 				CellGrid.BroadcastGrid( To.Single( client ), CellGrid.GeneratePackage() );
 
 			}
+
+			foreach( string[] message in ChatMessages ) 
+			{ 
+			
+				ChatBox.AddChatEntry( To.Single( client ), message[0], message[1] );
+
+			}
+
+			ChatBox.SayInfo( $"{client.Name} has joined." );
+
+		}
+
+		public override void ClientDisconnect( Client client, NetworkDisconnectionReason reason )
+		{
+
+			ChatBox.SayInfo( $"{client.Name} has left." );
 
 		}
 

@@ -6,11 +6,13 @@ using System.Collections.Generic;
 
 namespace GameOfLife
 {
+
 	public partial class ChatBox : Panel
 	{
+
 		static ChatBox Current;
 
-		public Panel Canvas { get; protected set; }
+		public static Panel Canvas { get; protected set; }
 		public TextEntry Input { get; protected set; }
 
 		public ChatBox()
@@ -22,7 +24,7 @@ namespace GameOfLife
 			Canvas = Add.Panel( "chat_canvas" );
 			Canvas.PreferScrollToBottom = true;
 
-			Input = Add.TextEntry( "" );
+			Input = Add.TextEntry( "Press [ENTER] to type" );
 			Input.AddEventListener( "onsubmit", () => Submit() );
 			Input.AddEventListener( "onblur", () => Close() );
 			Input.AcceptsFocus = true;
@@ -34,70 +36,83 @@ namespace GameOfLife
 
 		void Open()
 		{
+
 			AddClass( "open" );
 			Input.Focus();
+
+			Input.Text = "";
+
 		}
 
 		void Close()
 		{
+
 			RemoveClass( "open" );
 			Input.Blur();
+
+			Input.Text = "Press [ENTER] to type";
+
 		}
 
 		void Submit()
 		{
-			Close();
 
 			var msg = Input.Text.Trim();
-			Input.Text = "";
 
-			if ( string.IsNullOrWhiteSpace( msg ) )
-				return;
+			Close();
+
+			if ( string.IsNullOrWhiteSpace( msg ) ) return;
 
 			Say( msg );
-		}
 
-		public void AddEntry( string name, string message)
-		{
-			var e = Canvas.AddChild<ChatEntry>();
-			//e.SetFirstSibling();
-			e.Message.Text = message;
-			e.NameLabel.Text = name + ":";
-
-			e.SetClass( "noname", string.IsNullOrEmpty( name ) );
 		}
 
 
-		[ClientCmd( "chat_add", CanBeCalledFromServer = true )]
+		[ClientRpc]
 		public static void AddChatEntry( string name, string message )
 		{
-			Current?.AddEntry( name, message);
 
-			// Only log clientside if we're not the listen server host
+			var entry = Canvas.AddChild<ChatEntry>();
+			entry.Message.Text = message;
+			entry.NameLabel.Text = name + ":";
+
+			entry.SetClass( "noname", string.IsNullOrEmpty( name ) );
+
 			if ( !Global.IsListenServer )
 			{
+
 				Log.Info( $"{name}: {message}" ); 
+
 			}
+
 		}
 
-		[ClientCmd( "chat_addinfo", CanBeCalledFromServer = true )]
-		public static void AddInformation( string message )
+		[ServerCmd]
+		public static void SayInfo( string message )
 		{
-			Current?.AddEntry( null, message);
+
+			Log.Info( message );
+			AddChatEntry( To.Everyone, null, message );
+
+			GameOfLife.ChatMessages.Add( new string[2] { null, message } );
+
 		}
 
 		[ServerCmd( "say" )]
 		public static void Say( string message )
 		{
+
 			Assert.NotNull( ConsoleSystem.Caller );
 
-			// todo - reject more stuff
-			if ( message.Contains( '\n' ) || message.Contains( '\r' ) )
-				return;
+			if ( message.Contains( '\n' ) || message.Contains( '\r' ) ) return;
 
 			Log.Info( $"{ConsoleSystem.Caller}: {message}" );
 			AddChatEntry( To.Everyone, ConsoleSystem.Caller.Name, message );
+
+			GameOfLife.ChatMessages.Add( new string[2] { ConsoleSystem.Caller.Name, message } );
+
 		}
 
 	}
+
 }

@@ -23,8 +23,7 @@ namespace GameOfLife
 
 			string message = $"{ConsoleSystem.Caller.Name} pressed [CLEAR] !";
 
-			Log.Info( message );
-			ChatBox.AddChatEntry( To.Everyone, "", message );
+			ChatBox.SayInfo( message );
 
 		}
 
@@ -36,8 +35,7 @@ namespace GameOfLife
 
 			string message = $"{ConsoleSystem.Caller.Name} pressed [NEXT] !";
 
-			Log.Info( message );
-			ChatBox.AddChatEntry( To.Everyone, "", message );
+			ChatBox.SayInfo( message );
 
 		}
 
@@ -51,8 +49,7 @@ namespace GameOfLife
 
 			string message = $"{ConsoleSystem.Caller.Name} pressed " + ( isPlaying ? "[PLAY]" : "[STOP]" ) + " !" ;
 
-			Log.Info( message );
-			ChatBox.AddChatEntry( To.Everyone, "", message );
+			ChatBox.SayInfo( message );
 
 		}
 
