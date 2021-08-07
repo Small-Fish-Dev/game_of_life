@@ -17,7 +17,7 @@ namespace GameOfLife
 		{
 			Current = this;
 
-			StyleSheet.Load( "ChatBox.scss" );
+			StyleSheet.Load( "HUD.scss" );
 
 			Canvas = Add.Panel( "chat_canvas" );
 
