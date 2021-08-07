@@ -20,6 +20,7 @@ namespace GameOfLife
 			StyleSheet.Load( "HUD.scss" );
 
 			Canvas = Add.Panel( "chat_canvas" );
+			Canvas.PreferScrollToBottom = true;
 
 			Input = Add.TextEntry( "" );
 			Input.AddEventListener( "onsubmit", () => Submit() );
