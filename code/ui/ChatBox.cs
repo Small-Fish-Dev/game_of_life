@@ -7,6 +7,37 @@ using System.Collections.Generic;
 namespace GameOfLife
 {
 
+	public struct LogEntry
+	{
+
+		public string User { get; set; }
+		public string Message { get; set; }
+
+		public LogEntry( string _User , string _Message )
+		{
+
+			User = _User;
+			Message = _Message;
+				
+		}
+
+	}
+
+	public partial class ChatEntry : Panel
+	{
+
+		public Label NameLabel { get; internal set; }
+		public Label Message { get; internal set; }
+
+
+		public ChatEntry()
+		{
+			NameLabel = Add.Label( "Name", "name" );
+			Message = Add.Label( "Message", "message" );
+		}
+
+	}
+
 	public partial class ChatBox : Panel
 	{
 
@@ -94,7 +125,7 @@ namespace GameOfLife
 			Log.Info( message );
 			AddChatEntry( To.Everyone, null, message );
 
-			GameOfLife.ChatMessages.Add( new string[2] { null, message } );
+			GameOfLife.ChatMessages.Add( new LogEntry( null, message ) );
 
 		}
 
@@ -109,7 +140,7 @@ namespace GameOfLife
 			Log.Info( $"{ConsoleSystem.Caller}: {message}" );
 			AddChatEntry( To.Everyone, ConsoleSystem.Caller.Name, message );
 
-			GameOfLife.ChatMessages.Add( new string[2] { ConsoleSystem.Caller.Name, message } );
+			GameOfLife.ChatMessages.Add( new LogEntry( ConsoleSystem.Caller.Name, message ) );
 
 		}
 

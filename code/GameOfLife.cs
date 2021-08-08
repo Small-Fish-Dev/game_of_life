@@ -8,12 +8,11 @@ using System.Runtime;
 namespace GameOfLife
 {
 
-	[Library( "game_of_life", Title = "Conways Game of Life" )]
 	public partial class GameOfLife : Sandbox.Game
 	{
 
 		public static HUD GameHUD;
-		public static List<string[]> ChatMessages = new();
+		public static List<LogEntry> ChatMessages = new();
 
 		public GameOfLife()
 		{
@@ -43,10 +42,10 @@ namespace GameOfLife
 
 			}
 
-			foreach( string[] message in ChatMessages ) 
+			foreach( LogEntry message in ChatMessages ) 
 			{ 
 			
-				ChatBox.AddChatEntry( To.Single( client ), message[0], message[1] );
+				ChatBox.AddChatEntry( To.Single( client ), message.User, message.Message );
 
 			}
 
