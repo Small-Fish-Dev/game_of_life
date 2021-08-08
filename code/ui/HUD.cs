@@ -23,7 +23,7 @@ namespace GameOfLife
 		public GoLHUD()
 		{
 
-			StyleSheet.Load( "HUD.scss" );
+			StyleSheet.Load( "ui/HUD.scss" );
 
 			Sidebar = Add.Panel( "sidebar" );
 			Tools = Add.Panel( "tools" );
@@ -44,6 +44,8 @@ namespace GameOfLife
 
 
 			}
+
+			// TODO: Change text to x2 x3 etc... if spammed
 
 			var play = Tools.Add.Button( "▸", "buttons", () => { CellGrid.NetworkPlay( true ); CellGrid.Playing = true; PlaySound( "click2" ); } );
 
@@ -147,7 +149,7 @@ namespace GameOfLife
 		{
 			if ( !IsClient ) return;
 
-			RootPanel.StyleSheet.Load( "HUD.scss" );
+			RootPanel.StyleSheet.Load( "ui/HUD.scss" );
 
 			
 			RootPanel.AddChild<GoLHUD>();

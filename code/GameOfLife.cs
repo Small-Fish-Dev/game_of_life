@@ -32,6 +32,8 @@ namespace GameOfLife
 		public override void ClientJoined( Client client )
 		{
 
+			base.ClientJoined( client );
+
 			ushort[] package = CellGrid.GeneratePackage();
 
 			if ( package.Length > 0 )

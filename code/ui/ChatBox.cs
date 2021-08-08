@@ -19,7 +19,7 @@ namespace GameOfLife
 		{
 			Current = this;
 
-			StyleSheet.Load( "HUD.scss" );
+			StyleSheet.Load( "ui/HUD.scss" );
 
 			Canvas = Add.Panel( "chat_canvas" );
 			Canvas.PreferScrollToBottom = true;
