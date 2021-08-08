@@ -226,7 +226,13 @@ chatentry {
     .message {
         color: #ccc;
         font-size: 18px;
-        flex-grow: 1;
+        flex-shrink: 0;
+    }
+
+    .multiplier {
+        color: #8E942F;
+        font-size: 18px;
+        flex-shrink: 0;
     }
 
     &.noname .name {

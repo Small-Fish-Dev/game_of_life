@@ -7,17 +7,21 @@ using System.Collections.Generic;
 namespace GameOfLife
 {
 
-	public struct LogEntry
+	public class LogEntry
 	{
 
 		public string User { get; set; }
 		public string Message { get; set; }
+		public ChatEntry Entry { get; set; }
+		public int Multiplier { get; set; }
 
-		public LogEntry( string _User , string _Message )
+		public LogEntry( string _User , string _Message, ChatEntry _Entry = null, int _Multiplier = 0)
 		{
 
 			User = _User;
 			Message = _Message;
+			Entry = _Entry;
+			Multiplier = _Multiplier;
 				
 		}
 
@@ -28,12 +32,16 @@ namespace GameOfLife
 
 		public Label NameLabel { get; internal set; }
 		public Label Message { get; internal set; }
+		public Label Multiplier { get; internal set; }
 
 
 		public ChatEntry()
 		{
+
 			NameLabel = Add.Label( "Name", "name" );
 			Message = Add.Label( "Message", "message" );
+			Multiplier = Add.Label( "", "multiplier" );
+
 		}
 
 	}
@@ -103,18 +111,37 @@ namespace GameOfLife
 		public static void AddChatEntry( string name, string message )
 		{
 
+			if ( !Global.IsListenServer )
+			{
+
+				Log.Info( $"{name}: {message}" );
+
+			}
+
+			if ( GameOfLife.ChatMessages.Count > 0 )
+			{
+
+				var lastMessage = GameOfLife.ChatMessages[ GameOfLife.ChatMessages.Count - 1];
+
+				if ( lastMessage.Message == message )
+				{
+
+					lastMessage.Multiplier++;
+					lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+
+					return;
+
+				}
+
+			}
+
 			var entry = Canvas.AddChild<ChatEntry>();
 			entry.Message.Text = message;
 			entry.NameLabel.Text = name + ":";
 
+			GameOfLife.ChatMessages.Add( new LogEntry( name, message, entry) );
+
 			entry.SetClass( "noname", string.IsNullOrEmpty( name ) );
-
-			if ( !Global.IsListenServer )
-			{
-
-				Log.Info( $"{name}: {message}" ); 
-
-			}
 
 		}
 
@@ -137,7 +164,7 @@ namespace GameOfLife
 
 			if ( message.Contains( '\n' ) || message.Contains( '\r' ) ) return;
 
-			Log.Info( $"{ConsoleSystem.Caller}: {message}" );
+			Log.Info( $"{ConsoleSystem.Caller.Name}: {message}" );
 			AddChatEntry( To.Everyone, ConsoleSystem.Caller.Name, message );
 
 			GameOfLife.ChatMessages.Add( new LogEntry( ConsoleSystem.Caller.Name, message ) );
