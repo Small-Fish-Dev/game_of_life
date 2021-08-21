@@ -45,11 +45,16 @@ namespace GameOfLife
 
 			}
 
-			// TODO: Change text to x2 x3 etc... if spammed
+			var play = Tools.Add.Button( "▸", "buttons" );
+			play.AddEventListener( "onclick", () =>
+			{
 
-			var play = Tools.Add.Button( "▸", "buttons", () => { CellGrid.NetworkPlay( true ); CellGrid.Playing = true; PlaySound( "click2" ); } );
+				CellGrid.NetworkPlay( !CellGrid.Playing );
+				CellGrid.Playing = !CellGrid.Playing;
+				play.SetText( CellGrid.Playing ? "᱿" : "▸" );
+				PlaySound( "click2" );
 
-			var stop = Tools.Add.Button( "᱿", "buttons", () => { CellGrid.NetworkPlay( false ); CellGrid.Playing = false; PlaySound( "click2" ); } );
+			} );
 
 			var next = Tools.Add.Button( "⇥", "buttons", () => { CellGrid.NetworkNext(); PlaySound( "click2" ); } );
 
