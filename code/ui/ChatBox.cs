@@ -121,7 +121,35 @@ namespace GameOfLife
 			if ( GameOfLife.ChatMessages.Count > 0 )
 			{
 
+				// TODO: Find a better way to do this, for the love of God
+
 				var lastMessage = GameOfLife.ChatMessages[ GameOfLife.ChatMessages.Count - 1];
+
+				if ( lastMessage.Message.Contains( "PLAY" ) && message.Contains( "STOP" ) )
+				{
+
+					lastMessage.Entry.Message.Text = lastMessage.Entry.Message.Text.Replace( "PLAY", "STOP" );
+					lastMessage.Message = lastMessage.Message.Replace( "PLAY", "STOP" );
+					lastMessage.Multiplier++;
+					lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+
+					return;
+
+				}
+
+				if ( lastMessage.Message.Contains( "STOP" ) && message.Contains( "PLAY" ) )
+				{
+
+					lastMessage.Entry.Message.Text = lastMessage.Entry.Message.Text.Replace( "STOP", "PLAY" );
+					lastMessage.Message = lastMessage.Message.Replace( "STOP", "PLAY" );
+					lastMessage.Multiplier++;
+					lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+
+					return;
+
+				}
+
+				
 
 				if ( lastMessage.Message == message )
 				{
