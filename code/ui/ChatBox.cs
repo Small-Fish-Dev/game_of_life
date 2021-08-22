@@ -15,7 +15,7 @@ namespace GameOfLife
 		public ChatEntry Entry { get; set; }
 		public int Multiplier { get; set; }
 
-		public LogEntry( string _User , string _Message, ChatEntry _Entry = null, int _Multiplier = 0)
+		public LogEntry( string _User , string _Message, ChatEntry _Entry = null, int _Multiplier = 1)
 		{
 
 			User = _User;
