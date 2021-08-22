@@ -11,6 +11,8 @@ namespace GameOfLife
 		public static void NetworkUpdate( int x, int y, bool state )
 		{
 
+			Log.Info( "Received from client order to update cell" );
+
 			UpdateCell( x, y, state, true );
 
 		}
@@ -21,21 +23,18 @@ namespace GameOfLife
 
 			ClearGrid( true );
 
-			string message = $"{ConsoleSystem.Caller.Name} pressed [CLEAR] !";
-
-			ChatBox.SayInfo( message );
-
 		}
-
+		
 		[ServerCmd]
 		public static void NetworkNext()
 		{
 
-			NextFrame();
+			Log.Info( "Received from client order to next frame" );
+			NextFrame( true, ConsoleSystem.Caller );
 
-			string message = $"{ConsoleSystem.Caller.Name} pressed [NEXT] !";
+			//string message = $"{ConsoleSystem.Caller.Name} pressed [NEXT] !";
 
-			ChatBox.SayInfo( message );
+			//ChatBox.SayInfo( message );
 
 		}
 
@@ -43,23 +42,38 @@ namespace GameOfLife
 		public static void NetworkPlay( bool isPlaying)
 		{
 
-			Playing = isPlaying;
-			BroadcastPlay( isPlaying );
+			Play( isPlaying, true );
 
 
-			string message = $"{ConsoleSystem.Caller.Name} pressed " + ( isPlaying ? "[PLAY]" : "[STOP]" ) + " !" ;
+			//string message = $"{ConsoleSystem.Caller.Name} pressed " + ( isPlaying ? "[PLAY]" : "[STOP]" ) + " !" ;
 
-			ChatBox.SayInfo( message );
+			//ChatBox.SayInfo( message );
 
 		}
 
-		//TODO: Broadcast next frame to others
+		[ServerCmd]
+		public static void NetworkLoop( bool isLooping )
+		{
+
+			Loop( isLooping, true );
+
+
+			//string message = $"{ConsoleSystem.Caller.Name} pressed [LOOP] !";
+
+			//ChatBox.SayInfo( message );
+
+		}
+
 
 		[ClientRpc]
 		public static void BroadcastUpdate( int x, int y, bool state )
 		{
 
-			UpdateCell( x, y, state, false );
+			Log.Info( "Received from server order to update cell" );
+
+			UpdateCell( x, y, state );
+
+			// TODO: FIND OUT WHY THIS GETS CALLED OR SOMETHING IT'S FUCKED UP
 
 		}
 
@@ -67,23 +81,16 @@ namespace GameOfLife
 		public static void BroadcastClear()
 		{
 
-			ClearGrid( false );
+			ClearGrid();
 
 		}
 
 		[ClientRpc]
-		public static void BroadcastGrid( ushort[] grid )
+		public static void BroadcastNext()
 		{
 
-			foreach(ushort cell in grid )
-			{
-
-				int posX = cell % CellGrid.GridSize.x;
-				int posY = (int)MathX.Floor( cell / CellGrid.GridSize.x );
-
-				UpdateCell( posX, posY, true, false );
-
-			}
+			Log.Info( "Received from server order to next frame" );
+			NextFrame();
 
 		}
 
@@ -91,7 +98,36 @@ namespace GameOfLife
 		public static void BroadcastPlay( bool isPlaying )
 		{
 
-			Playing = isPlaying;
+			Play( isPlaying );
+
+			//TODO: Change button
+
+		}
+
+		[ClientRpc]
+		public static void BroadcastLoop( bool isLooping )
+		{
+
+			Loop( isLooping );
+
+			//TODO: Change button
+
+		}
+
+
+		[ClientRpc]
+		public static void BroadcastGrid( ushort[] grid )
+		{
+
+			foreach ( ushort cell in grid )
+			{
+
+				int posX = cell % CellGrid.GridSize.x;
+				int posY = (int)MathX.Floor( cell / CellGrid.GridSize.x );
+
+				UpdateCell( posX, posY, true );
+
+			}
 
 		}
 

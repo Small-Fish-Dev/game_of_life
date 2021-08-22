@@ -49,16 +49,39 @@ namespace GameOfLife
 			play.AddEventListener( "onclick", () =>
 			{
 
-				CellGrid.NetworkPlay( !CellGrid.Playing );
-				CellGrid.Playing = !CellGrid.Playing;
+				CellGrid.Play( !CellGrid.Playing, true );
 				play.SetText( CellGrid.Playing ? "᱿" : "▸" );
 				PlaySound( "click2" );
 
 			} );
 
-			var next = Tools.Add.Button( "⇥", "buttons", () => { CellGrid.NetworkNext(); PlaySound( "click2" ); } );
+			var next = Tools.Add.Button( "⇥", "buttons", () =>
+			{
 
-			var clear = Tools.Add.Button( "⨯", "buttons", () => { CellGrid.ClearGrid( true ); PlaySound( "click2" ); } );
+				CellGrid.NextFrame( true );
+				PlaySound( "click2" );
+
+			} );
+
+			var clear = Tools.Add.Button( "⨯", "buttons", () =>
+			{
+
+				CellGrid.ClearGrid( true );
+				PlaySound( "click2" );
+
+			} );
+
+			var loop = Tools.Add.Button( "⟳", "buttons" );
+			var cross = loop.Add.Label( "✕", "cross" );
+			cross.Style.Opacity = 0;
+			loop.AddEventListener( "onclick", () =>
+			{
+
+				CellGrid.Loop( !CellGrid.Looping, true );
+				cross.Style.Opacity = CellGrid.Looping ? 1 : 0;
+				PlaySound( "click2" );
+
+			} );
 
 			Grid.Style.PixelSnap = 0;
 

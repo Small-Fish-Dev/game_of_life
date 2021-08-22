@@ -37,6 +37,7 @@ namespace GameOfLife
 		public static List<Vector2Int> ActiveCells = new();
 		public static Panel CellPanel { get; set; }
 		public static bool Playing { get; set; } = false;
+		public static bool Looping { get; set; } = true;
 
 		static CellGrid()
 		{
@@ -71,7 +72,7 @@ namespace GameOfLife
 
 		}
 
-		public static void UpdateCell( int x, int y, bool state, bool networked )
+		public static void UpdateCell( int x, int y, bool state, bool networked = false )
 		{
 
 			Cell( x, y ).Alive = state;
@@ -109,11 +110,15 @@ namespace GameOfLife
 				if ( Host.IsServer )
 				{
 
+					Log.Info( "Broadcasting from server to clients" );
+
 					BroadcastUpdate( x, y, state );
 
 				}
 				else
 				{
+
+					Log.Info( "Networking from client to server" );
 
 					NetworkUpdate( x, y, state );
 
@@ -123,7 +128,7 @@ namespace GameOfLife
 
 		}
 
-		public static void ClearGrid( bool networked )
+		public static void ClearGrid( bool networked = false )
 		{
 
 			List<Vector2Int> oldGrid = new( ActiveCells );
@@ -131,11 +136,11 @@ namespace GameOfLife
 			oldGrid.ForEach( delegate ( Vector2Int pos )
 			{
 
-				UpdateCell( pos.x, pos.y, false, false );
+				UpdateCell( pos.x, pos.y, false );
 
 			} );
 
-			if ( networked )
+			if( networked )
 			{
 
 				if ( Host.IsServer )
@@ -155,7 +160,7 @@ namespace GameOfLife
 
 		}
 
-		public static void NextFrame()
+		public static void NextFrame( bool networked = false, Client caller = null )
 		{
 
 			Dictionary<Vector2Int, bool> newGeneration = new();
@@ -236,7 +241,89 @@ namespace GameOfLife
 			foreach ( KeyValuePair<Vector2Int, bool> newCell in newGeneration )
 			{
 
-				UpdateCell( newCell.Key.x, newCell.Key.y, newCell.Value, true );
+				UpdateCell( newCell.Key.x, newCell.Key.y, newCell.Value );
+
+				Log.Info( "Updating the cell from within the next function" );
+
+			}
+
+			if ( networked )
+			{
+
+				if ( Host.IsServer )
+				{
+
+					foreach ( Client client in Client.All )
+					{
+
+						if( client != caller )
+						{
+
+							Log.Info( "Broadcasting next frame from server to clients" );
+							BroadcastNext( To.Single( client ) ); // Send to everyone except the caller
+
+						}
+
+					}
+
+				}
+				else
+				{
+
+					Log.Info( "Networking next frame from client to server" );
+					NetworkNext();
+
+				}
+
+			}
+
+		}
+
+		public static void Play( bool isPlaying, bool networked = false)
+		{
+
+			Playing = isPlaying;
+
+			if ( networked )
+			{
+
+				if ( Host.IsServer )
+				{
+
+					BroadcastPlay( isPlaying );
+
+				}
+				else
+				{
+
+					NetworkPlay( isPlaying );
+
+				}
+
+			}
+
+		}
+
+		public static void Loop( bool isLooping, bool networked = false )
+		{
+
+			Looping = isLooping;
+
+			if ( networked )
+			{
+
+				if ( Host.IsServer )
+				{
+
+					BroadcastLoop( isLooping );
+
+				}
+				else
+				{
+
+					BroadcastLoop( isLooping );
+
+				}
 
 			}
 

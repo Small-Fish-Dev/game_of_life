@@ -108,7 +108,7 @@ RootPanel {
 
     .tools {
         flex-direction: column;
-        flex-grow: 1;
+        flex-grow: 0;
         flex-shrink: 0;
         width: 150px;
         justify-content: space-around;
@@ -119,33 +119,34 @@ RootPanel {
             cursor: pointer;
             color: white;
             border: 2px solid white;
-            padding: 5px 3px 10px 5px;
+            padding: 3px 0px 15px 0px;
             border-radius: 15px;
             width: 100px;
             justify-content: center;
-            text-align: center;
             mix-blend-mode: color;
 
             label {
                 font-size: 40px;
                 font-family: Arial;
-                font-weight: 700;
                 color: white;
+            }
+
+            .cross {
+                font-size: 47px;
+                font-family: Arial;
+                color: white;
+                position: absolute;
+                left: 28px;
             }
 
             &:hover {
                 background-color: #301B3F;
-                color: white;
             }
 
             &.active, &:active {
                 background-color: #3C415C;
-                color: white;
             }
 
-            &.settings {
-                background-color: none;
-            }
         }
     }
 

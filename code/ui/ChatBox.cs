@@ -30,16 +30,16 @@ namespace GameOfLife
 	public partial class ChatEntry : Panel
 	{
 
-		public Label NameLabel { get; internal set; }
-		public Label Message { get; internal set; }
-		public Label Multiplier { get; internal set; }
+		public Label User { get; set; }
+		public Label Message { get; set; }
+		public Label Multiplier { get; set; }
 
 
 		public ChatEntry()
 		{
 
-			NameLabel = Add.Label( "Name", "name" );
-			Message = Add.Label( "Message", "message" );
+			User = Add.Label( "", "name" );
+			Message = Add.Label( "", "message" );
 			Multiplier = Add.Label( "", "multiplier" );
 
 		}
@@ -49,14 +49,11 @@ namespace GameOfLife
 	public partial class ChatBox : Panel
 	{
 
-		static ChatBox Current;
-
 		public static Panel Canvas { get; protected set; }
 		public TextEntry Input { get; protected set; }
 
 		public ChatBox()
 		{
-			Current = this;
 
 			StyleSheet.Load( "ui/HUD.scss" );
 
@@ -67,11 +64,11 @@ namespace GameOfLife
 			Input.AddEventListener( "onsubmit", () => Submit() );
 			Input.AddEventListener( "onblur", () => Close() );
 			Input.AcceptsFocus = true;
-			Input.AllowEmojiReplace = true;
+			Input.AllowEmojiReplace = false; //Emojies would stick out too much with the font
 
 			Sandbox.Hooks.Chat.OnOpenChat += Open;
-		}
 
+		}
 
 		void Open()
 		{
@@ -165,7 +162,7 @@ namespace GameOfLife
 
 			var entry = Canvas.AddChild<ChatEntry>();
 			entry.Message.Text = message;
-			entry.NameLabel.Text = name + ":";
+			entry.User.Text = name + ":";
 
 			GameOfLife.ChatMessages.Add( new LogEntry( name, message, entry) );
 
