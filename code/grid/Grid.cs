@@ -39,6 +39,7 @@ namespace GameOfLife
 		public static bool Playing { get; set; } = false;
 		public static bool Looping { get; set; } = true;
 		public static Panel LoopCross { get; set; }
+		public static Label PlayLabel { get; set; }
 
 		static CellGrid()
 		{
@@ -306,6 +307,13 @@ namespace GameOfLife
 		{
 
 			Playing = isPlaying;
+
+			if ( Host.IsClient )
+			{
+
+				PlayLabel.SetText( Playing ? "᱿" : "▸" );
+
+			}
 
 			if ( networked )
 			{

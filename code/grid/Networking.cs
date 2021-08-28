@@ -92,8 +92,6 @@ namespace GameOfLife
 
 			Play( isPlaying );
 
-			//TODO: Change button
-
 		}
 
 		[ClientRpc]
@@ -101,8 +99,6 @@ namespace GameOfLife
 		{
 
 			Loop( isLooping );
-
-			//TODO: Change button
 
 		}
 

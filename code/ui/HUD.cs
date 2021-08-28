@@ -39,12 +39,11 @@ namespace GameOfLife
 
 			// [PLAY] button
 			var play = tools.Add.Button( "", "buttons" );
-			var playlabel = play.Add.Label( "▸", "play" );
+			CellGrid.PlayLabel = play.Add.Label( "▸", "play" );
 			play.AddEventListener( "onclick", () =>
 			{
 
 				CellGrid.Play( !CellGrid.Playing, true );
-				playlabel.SetText( CellGrid.Playing ? "᱿" : "▸" );
 				PlaySound( "click2" );
 
 			} );
