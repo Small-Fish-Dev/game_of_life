@@ -359,27 +359,17 @@ namespace GameOfLife
 
 		}
 
-		public static ushort[] GeneratePackage() // TODO: Use activeCells list
+		public static ushort[] GeneratePackage()
 		{
 
 			List<ushort> package = new();
 
-			for ( int x = 0; x < GridSize.x; x++ )
+			foreach ( Vector2Int cell in ActiveCells )
 			{
 
-				for ( int y = 0; y < GridSize.y; y++ )
-				{
+				ushort cellPos = (ushort)( GridSize.y * cell.y + cell.x );
 
-					if( Cell( x, y ).Alive )
-					{
-
-						ushort cellPos = (ushort)( GridSize.y * y + x );
-
-						package.Add( cellPos );
-
-					}
-
-				}
+				package.Add( cellPos );
 
 			}
 

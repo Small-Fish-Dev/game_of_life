@@ -10,7 +10,7 @@ namespace GameOfLife
 	public class GoLHUD : Panel
 	{
 
-		public Panel Grid { get; set; }
+		public Panel Grid { get; internal set; }
 
 		public GoLHUD()
 		{
