@@ -119,16 +119,41 @@ RootPanel {
             cursor: pointer;
             color: white;
             border: 2px solid white;
-            padding: 3px 0px 15px 0px;
             border-radius: 15px;
+            height: 85px;
             width: 100px;
             justify-content: center;
             mix-blend-mode: color;
 
-            label {
+            .play {
+                font-size: 55px;
+                font-family: Arial;
+                color: white;
+                padding-right: 2px;
+            }
+
+            .next {
+                font-size: 45px;
+                font-family: Arial;
+                color: white;
+                padding-top: 6px;
+                padding-right: 3px;
+            }
+
+            .clear {
+                font-size: 43px;
+                font-family: Arial;
+                color: white;
+                padding-top: 7px;
+                padding-right: 3px;
+            }
+
+            .loop {
                 font-size: 40px;
                 font-family: Arial;
                 color: white;
+                padding-top: 9px;
+                padding-right: 4px;
             }
 
             .cross {
@@ -136,6 +161,7 @@ RootPanel {
                 font-family: Arial;
                 color: white;
                 position: absolute;
+                top: 5px;
                 left: 28px;
             }
 
@@ -146,7 +172,6 @@ RootPanel {
             &.active, &:active {
                 background-color: #3C415C;
             }
-
         }
     }
 

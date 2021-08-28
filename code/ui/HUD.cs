@@ -37,17 +37,22 @@ namespace GameOfLife
 
 			}
 
-			var play = tools.Add.Button( "▸", "buttons" );
+			// [PLAY] button
+			var play = tools.Add.Button( "", "buttons" );
+			var playlabel = play.Add.Label( "▸", "play" );
 			play.AddEventListener( "onclick", () =>
 			{
 
 				CellGrid.Play( !CellGrid.Playing, true );
-				play.SetText( CellGrid.Playing ? "᱿" : "▸" );
+				playlabel.SetText( CellGrid.Playing ? "᱿" : "▸" );
 				PlaySound( "click2" );
 
 			} );
 
-			var next = tools.Add.Button( "⇥", "buttons", () =>
+			// [NEXT] button
+			var next = tools.Add.Button( "", "buttons" );
+			next.Add.Label( "⇥", "next" );
+			next.AddEventListener( "onclick", () =>
 			{
 
 				CellGrid.Next( true );
@@ -55,7 +60,10 @@ namespace GameOfLife
 
 			} );
 
-			var clear = tools.Add.Button( "⨯", "buttons", () =>
+			// [CLEAR] button
+			var clear = tools.Add.Button( "", "buttons" );
+			clear.Add.Label( "⨯", "clear" );
+			clear.AddEventListener( "onclick", () =>
 			{
 
 				CellGrid.ClearGrid( true );
@@ -63,7 +71,9 @@ namespace GameOfLife
 
 			} );
 
-			var loop = tools.Add.Button( "⟳", "buttons" );
+			// [LOOP] button
+			var loop = tools.Add.Button( "", "buttons" );
+			loop.Add.Label( "⟳", "loop" );
 			CellGrid.LoopCross = loop.Add.Label( "✕", "cross" );
 			CellGrid.LoopCross.Style.Opacity = 0;
 			loop.AddEventListener( "onclick", () =>
