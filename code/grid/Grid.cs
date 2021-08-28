@@ -38,8 +38,12 @@ namespace GameOfLife
 		public static Panel CellPanel { get; set; }
 		public static bool Playing { get; set; } = false;
 		public static bool Looping { get; set; } = true;
+		public static int Speed { get; set; } = 2; // Relative to the ValidSpeeds list
 		public static Panel LoopCross { get; set; }
 		public static Label PlayLabel { get; set; }
+		public static Label SpeedLabel { get; set; }
+
+		public static List<int> ValidSpeeds { get; set; } = new() { 1, 5, 10, 20, 50 };
 
 		static CellGrid()
 		{
@@ -360,6 +364,40 @@ namespace GameOfLife
 				{
 
 					NetworkLoop( isLooping );
+
+				}
+
+			}
+
+		}
+
+		public static void SetSpeed( int speed, bool networked = false )
+		{
+
+			Speed = speed;
+
+			if ( Host.IsClient )
+			{
+
+				Log.Info( speed );
+
+				SpeedLabel.SetText( $"⨯{(float)ValidSpeeds[speed]/10}" );
+
+			}
+
+			if ( networked )
+			{
+
+				if ( Host.IsServer )
+				{
+
+					BroadcastSpeed( speed );
+
+				}
+				else
+				{
+
+					NetworkSpeed( speed );
 
 				}
 

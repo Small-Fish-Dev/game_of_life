@@ -83,6 +83,17 @@ namespace GameOfLife
 
 			} );
 
+			// [SPEED] button
+			var speed = tools.Add.Button( "", "buttons" );
+			CellGrid.SpeedLabel = speed.Add.Label( "⨯1", "speed" );
+			speed.AddEventListener( "onclick", () =>
+			{
+
+				CellGrid.SetSpeed( (CellGrid.Speed + 1 ) % CellGrid.ValidSpeeds.Count , true );
+				PlaySound( "click2" );
+
+			} );
+
 			Grid.Style.PixelSnap = 0;
 
 			Grid.AddChild<CellPanel>();

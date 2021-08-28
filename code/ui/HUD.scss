@@ -165,6 +165,15 @@ RootPanel {
                 left: 28px;
             }
 
+            .speed {
+                font-size: 35px;
+                font-weight: 700;
+                font-family: Arial;
+                color: white;
+                padding-right: 7px;
+                padding-top: 13px;
+            }
+
             &:hover {
                 background-color: #301B3F;
             }

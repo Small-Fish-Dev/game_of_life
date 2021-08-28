@@ -61,6 +61,19 @@ namespace GameOfLife
 
 		}
 
+		[ServerCmd]
+		public static void NetworkSpeed( int speed )
+		{
+
+			SetSpeed( speed, true );
+
+
+			//string message = $"{ConsoleSystem.Caller.Name} pressed [SPEED] !";
+
+			//ChatBox.SayInfo( message );
+
+		}
+
 
 		[ClientRpc]
 		public static void BroadcastUpdate( int x, int y, bool state )
@@ -99,6 +112,14 @@ namespace GameOfLife
 		{
 
 			Loop( isLooping );
+
+		}
+
+		[ClientRpc]
+		public static void BroadcastSpeed( int speed )
+		{
+
+			SetSpeed( speed );
 
 		}
 

@@ -72,7 +72,7 @@ namespace GameOfLife
 				if ( Time.Now >= lastFrame )
 				{
 
-					lastFrame = Time.Now + 0.1f;
+					lastFrame = Time.Now + 1/(float)CellGrid.ValidSpeeds[CellGrid.Speed];
 
 					CellGrid.Next( true );
 
