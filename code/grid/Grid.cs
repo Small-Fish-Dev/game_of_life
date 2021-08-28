@@ -75,6 +75,13 @@ namespace GameOfLife
 		public static void UpdateCell( int x, int y, bool state, bool networked = false )
 		{
 
+			if( Cell( x, y ).Alive == state )
+			{
+
+				return;
+
+			}
+
 			Cell( x, y ).Alive = state;
 
 			if ( state )
@@ -110,15 +117,11 @@ namespace GameOfLife
 				if ( Host.IsServer )
 				{
 
-					Log.Info( "Broadcasting from server to clients" );
-
 					BroadcastUpdate( x, y, state );
 
 				}
 				else
 				{
-
-					Log.Info( "Networking from client to server" );
 
 					NetworkUpdate( x, y, state );
 
@@ -243,8 +246,6 @@ namespace GameOfLife
 
 				UpdateCell( newCell.Key.x, newCell.Key.y, newCell.Value );
 
-				Log.Info( "Updating the cell from within the next function" );
-
 			}
 
 			if ( networked )
@@ -259,7 +260,6 @@ namespace GameOfLife
 						if( client != caller )
 						{
 
-							Log.Info( "Broadcasting next frame from server to clients" );
 							BroadcastNext( To.Single( client ) ); // Send to everyone except the caller
 
 						}
@@ -270,7 +270,6 @@ namespace GameOfLife
 				else
 				{
 
-					Log.Info( "Networking next frame from client to server" );
 					NetworkNext();
 
 				}

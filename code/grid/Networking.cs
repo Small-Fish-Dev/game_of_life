@@ -11,8 +11,6 @@ namespace GameOfLife
 		public static void NetworkUpdate( int x, int y, bool state )
 		{
 
-			Log.Info( "Received from client order to update cell" );
-
 			UpdateCell( x, y, state, true );
 
 		}
@@ -29,7 +27,6 @@ namespace GameOfLife
 		public static void NetworkNext()
 		{
 
-			Log.Info( "Received from client order to next frame" );
 			NextFrame( true, ConsoleSystem.Caller );
 
 			//string message = $"{ConsoleSystem.Caller.Name} pressed [NEXT] !";
@@ -69,11 +66,7 @@ namespace GameOfLife
 		public static void BroadcastUpdate( int x, int y, bool state )
 		{
 
-			Log.Info( "Received from server order to update cell" );
-
 			UpdateCell( x, y, state );
-
-			// TODO: FIND OUT WHY THIS GETS CALLED OR SOMETHING IT'S FUCKED UP
 
 		}
 
@@ -89,7 +82,6 @@ namespace GameOfLife
 		public static void BroadcastNext()
 		{
 
-			Log.Info( "Received from server order to next frame" );
 			NextFrame();
 
 		}
