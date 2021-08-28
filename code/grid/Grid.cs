@@ -183,7 +183,7 @@ namespace GameOfLife
 
 		}
 
-		public static void NextFrame( bool networked = false, Client caller = null )
+		public static void Next( bool networked = false, Client caller = null )
 		{
 
 			Dictionary<Vector2Int, bool> newGeneration = new();
@@ -202,7 +202,7 @@ namespace GameOfLife
 
 						var checkPos = new Vector2Int( pos.x + x, pos.y + y );
 
-						if( !Looping )
+						if( Looping )
 						{
 
 							checkPos.x = LoopAround( checkPos.x, GridSize.x );

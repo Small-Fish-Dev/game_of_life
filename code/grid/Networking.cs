@@ -27,7 +27,7 @@ namespace GameOfLife
 		public static void NetworkNext()
 		{
 
-			NextFrame( true, ConsoleSystem.Caller );
+			Next( true, ConsoleSystem.Caller );
 
 			//string message = $"{ConsoleSystem.Caller.Name} pressed [NEXT] !";
 
@@ -82,7 +82,7 @@ namespace GameOfLife
 		public static void BroadcastNext()
 		{
 
-			NextFrame();
+			Next();
 
 		}
 

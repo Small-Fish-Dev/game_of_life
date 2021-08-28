@@ -58,7 +58,7 @@ namespace GameOfLife
 			var next = Tools.Add.Button( "⇥", "buttons", () =>
 			{
 
-				CellGrid.NextFrame( true );
+				CellGrid.Next( true );
 				PlaySound( "click2" );
 
 			} );

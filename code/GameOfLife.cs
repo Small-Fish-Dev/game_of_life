@@ -74,7 +74,7 @@ namespace GameOfLife
 
 					lastFrame = Time.Now + 0.1f;
 
-					CellGrid.NextFrame();
+					CellGrid.Next();
 
 				}
 
