@@ -38,6 +38,7 @@ namespace GameOfLife
 		public static Panel CellPanel { get; set; }
 		public static bool Playing { get; set; } = false;
 		public static bool Looping { get; set; } = true;
+		public static Panel LoopCross { get; set; }
 
 		static CellGrid()
 		{
@@ -212,8 +213,8 @@ namespace GameOfLife
 						else
 						{
 
-							if ( checkPos.x > GridSize.x || checkPos.x < 0 ) { continue; }
-							if ( checkPos.y > GridSize.y || checkPos.y < 0 ) { continue; }
+							if ( checkPos.x >= GridSize.x || checkPos.x < 0 ) { continue; }
+							if ( checkPos.y >= GridSize.y || checkPos.y < 0 ) { continue; }
 
 						}
 
@@ -331,6 +332,13 @@ namespace GameOfLife
 
 			Looping = isLooping;
 
+			if( Host.IsClient )
+			{
+
+				LoopCross.Style.Opacity = Looping ? 0 : 1;
+
+			}
+
 			if ( networked )
 			{
 
@@ -343,7 +351,7 @@ namespace GameOfLife
 				else
 				{
 
-					BroadcastLoop( isLooping );
+					NetworkLoop( isLooping );
 
 				}
 

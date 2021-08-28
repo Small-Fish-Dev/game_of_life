@@ -10,14 +10,6 @@ namespace GameOfLife
 	public class GoLHUD : Panel
 	{
 
-		public Panel Sidebar { get; set; }
-		public Panel Title { get; set; }
-		public Panel Patterns { get; set; }
-		public Panel PatternsTitle { get; set; }
-		public Panel PatternContainer { get; set; }
-		public Panel Chat { get; set; }
-		public Panel Tools { get; set; }
-		public Panel Buttons { get; set; }
 		public Panel Grid { get; set; }
 
 		public GoLHUD()
@@ -25,27 +17,27 @@ namespace GameOfLife
 
 			StyleSheet.Load( "ui/HUD.scss" );
 
-			Sidebar = Add.Panel( "sidebar" );
-			Tools = Add.Panel( "tools" );
+			var sidebar = Add.Panel( "sidebar" );
+			var tools = Add.Panel( "tools" );
 			Grid = Add.Panel( "grid" );
 
-			Title = Sidebar.Add.Panel( "title" );
-			Title.Add.Label( "Game of Life" );
+			var title = sidebar.Add.Panel( "title" );
+			title.Add.Label( "Game of Life" );
 
-			Patterns = Sidebar.Add.Panel( "patterns" );
-			PatternsTitle = Patterns.Add.Panel( "patternstitle" );
-			PatternsTitle.Add.Label( "Patterns" );
-			PatternContainer = Patterns.Add.Panel( "patterncontainer" );
+			var patterns = sidebar.Add.Panel( "patterns" );
+			var patternsTitle = patterns.Add.Panel( "patternstitle" );
+			patternsTitle.Add.Label( "Patterns" );
+			var patternsContainer = patterns.Add.Panel( "patterncontainer" );
 
 			for( int i = 0; i < 100; i++)
 			{
 
-				PatternContainer.AddChild<PatternEntry>();
+				patternsContainer.AddChild<PatternEntry>();
 
 
 			}
 
-			var play = Tools.Add.Button( "▸", "buttons" );
+			var play = tools.Add.Button( "▸", "buttons" );
 			play.AddEventListener( "onclick", () =>
 			{
 
@@ -55,7 +47,7 @@ namespace GameOfLife
 
 			} );
 
-			var next = Tools.Add.Button( "⇥", "buttons", () =>
+			var next = tools.Add.Button( "⇥", "buttons", () =>
 			{
 
 				CellGrid.Next( true );
@@ -63,7 +55,7 @@ namespace GameOfLife
 
 			} );
 
-			var clear = Tools.Add.Button( "⨯", "buttons", () =>
+			var clear = tools.Add.Button( "⨯", "buttons", () =>
 			{
 
 				CellGrid.ClearGrid( true );
@@ -71,14 +63,13 @@ namespace GameOfLife
 
 			} );
 
-			var loop = Tools.Add.Button( "⟳", "buttons" );
-			var cross = loop.Add.Label( "✕", "cross" );
-			cross.Style.Opacity = 0;
+			var loop = tools.Add.Button( "⟳", "buttons" );
+			CellGrid.LoopCross = loop.Add.Label( "✕", "cross" );
+			CellGrid.LoopCross.Style.Opacity = 0;
 			loop.AddEventListener( "onclick", () =>
 			{
 
 				CellGrid.Loop( !CellGrid.Looping, true );
-				cross.Style.Opacity = CellGrid.Looping ? 1 : 0;
 				PlaySound( "click2" );
 
 			} );
@@ -86,8 +77,8 @@ namespace GameOfLife
 			Grid.Style.PixelSnap = 0;
 
 			Grid.AddChild<CellPanel>();
-			Chat = Sidebar.Add.Panel( "chat" );
-			Chat.AddChild<ChatBox>();
+			var chat = sidebar.Add.Panel( "chat" );
+			chat.AddChild<ChatBox>();
 
 		}
 
@@ -97,8 +88,8 @@ namespace GameOfLife
 			if ( e.Button == "mouseleft" && e.Pressed == true )
 			{
 
-				int x = (int)MathX.Floor( Grid.MousePosition.x / Grid.Box.Rect.width * 50 );
-				int y = (int)MathX.Floor( Grid.MousePosition.y / Grid.Box.Rect.height * 50 );
+				int x = (int)MathX.Floor( Grid.MousePosition.x / Grid.Box.Rect.width * 50.3f );
+				int y = (int)MathX.Floor( Grid.MousePosition.y / Grid.Box.Rect.height * 50.3f );
 
 				if( x >= 0 && x <= CellGrid.GridSize.x && y >= 0 && y <= CellGrid.GridSize.y )
 				{
