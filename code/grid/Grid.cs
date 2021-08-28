@@ -32,7 +32,7 @@ namespace GameOfLife
 	public static partial class CellGrid
 	{
 
-		public static Vector2Int GridSize = new( 50, 50 );
+		public readonly static Vector2Int GridSize = new( 50, 50 );
 		private static Dictionary<Vector2Int, Cell> cells = new();
 		public static List<Vector2Int> ActiveCells = new();
 		public static Panel CellPanel { get; set; }
@@ -49,7 +49,27 @@ namespace GameOfLife
 		public static Cell Cell( int x, int y )
 		{
 
+			if( Looping )
+			{
+
+				x = LoopAround( x, GridSize.x );
+				y = LoopAround( y, GridSize.y );
+
+			}
+
 			return cells[new Vector2Int( x, y )];
+
+		}
+
+		public static int LoopAround( int variable, int max )
+		{
+
+			int loopedVariable = variable;
+
+			if ( variable >= max ) { loopedVariable = loopedVariable % max; }
+			if ( variable < 0 ) { loopedVariable = max - ( ( -variable ) % max ); }
+
+			return loopedVariable;
 
 		}
 
@@ -178,32 +198,35 @@ namespace GameOfLife
 					for ( int y = -1; y <= 1; y++ )
 					{
 
-						var itself = false;
-
-						if ( x == 0 && y == 0 )
-						{
-
-							itself = true;
-
-						}
+						if ( x == 0 && y == 0 ) { continue; }
 
 						var checkPos = new Vector2Int( pos.x + x, pos.y + y );
 
-						if ( checkPos.x < 0 ) { checkPos.x = CellGrid.GridSize.x - 1; }
-						if ( checkPos.y < 0 ) { checkPos.y = CellGrid.GridSize.y - 1; }
-						if ( checkPos.x >= CellGrid.GridSize.x ) { checkPos.x = 0; }
-						if ( checkPos.y >= CellGrid.GridSize.y ) { checkPos.y = 0; }
-
-						if ( neighbourCount.ContainsKey( checkPos ) )
+						if( !Looping )
 						{
 
-							neighbourCount[checkPos] += itself ? 0 : 1;
+							checkPos.x = LoopAround( checkPos.x, GridSize.x );
+							checkPos.y = LoopAround( checkPos.y, GridSize.y );
 
 						}
 						else
 						{
 
-							neighbourCount.Add( checkPos, itself ? 0 : 1 );
+							if ( checkPos.x > GridSize.x || checkPos.x < 0 ) { continue; }
+							if ( checkPos.y > GridSize.y || checkPos.y < 0 ) { continue; }
+
+						}
+
+						if ( neighbourCount.ContainsKey( checkPos ) )
+						{
+
+							neighbourCount[checkPos]++;
+
+						}
+						else
+						{
+
+							neighbourCount.Add( checkPos,  1 );
 
 						}
 
