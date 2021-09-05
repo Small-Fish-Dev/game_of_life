@@ -204,9 +204,20 @@ namespace GameOfLife
 					for ( int y = -1; y <= 1; y++ )
 					{
 
-						if ( x == 0 && y == 0 ) { continue; }
-
 						var checkPos = new Vector2Int( pos.x + x, pos.y + y );
+
+						if ( x == 0 && y == 0 ) {
+
+							if ( !neighbourCount.ContainsKey( checkPos ) )
+							{
+
+								neighbourCount.Add( checkPos, 0 );
+
+							}
+							
+							continue;
+
+						}
 
 						if( Looping )
 						{
