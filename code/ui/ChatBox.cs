@@ -12,17 +12,35 @@ namespace GameOfLife
 
 		public string User { get; set; }
 		public string Message { get; set; }
+		public string Button { get; set; }
+		public int Multiplier { get; set; } = 1;
 		public ChatEntry Entry { get; set; }
-		public int Multiplier { get; set; }
 
-		public LogEntry( string _User , string _Message, ChatEntry _Entry = null, int _Multiplier = 1)
+		public LogEntry( string _User, string _Message )
+		{
+
+			User = _User;
+			Message = _Message;
+
+		}
+
+		public LogEntry( string _User , string _Message, string _Button = null )
+		{
+
+			User = _User;
+			Message = _Message;
+			Button = _Button;
+				
+		}
+
+		public LogEntry( string _User, string _Message, ChatEntry _Entry = null, string _Button = null )
 		{
 
 			User = _User;
 			Message = _Message;
 			Entry = _Entry;
-			Multiplier = _Multiplier;
-				
+			Button = _Button;
+
 		}
 
 	}
@@ -32,6 +50,7 @@ namespace GameOfLife
 
 		public Label User { get; set; }
 		public Label Message { get; set; }
+		public Label Button { get; set; }
 		public Label Multiplier { get; set; }
 
 
@@ -40,6 +59,7 @@ namespace GameOfLife
 
 			User = Add.Label( "", "name" );
 			Message = Add.Label( "", "message" );
+			Button = Add.Label( "", "button" );
 			Multiplier = Add.Label( "", "multiplier" );
 
 		}
@@ -103,9 +123,120 @@ namespace GameOfLife
 
 		}
 
+		public static void SendChatLog( string message, string name = null, string button = null )
+		{
+
+			AddChatLog( name, message, button );
+
+			Log.Info( $"{name} {message} {button}" );
+			GameOfLife.ChatMessages.Add( new LogEntry( name, message, button ) );
+
+		}
 
 		[ClientRpc]
-		public static void AddChatEntry( string name, string message )
+		public static void AddChatLog( string name, string message, string button = null )
+		{
+
+			if ( !Global.IsListenServer )
+			{
+
+				Log.Info( $"{name} {message} {button}" );
+
+			}
+
+			if ( GameOfLife.ChatMessages.Count > 0 )
+			{
+
+				var lastMessage = GameOfLife.ChatMessages[GameOfLife.ChatMessages.Count - 1];
+
+				if( message == lastMessage.Message )
+				{
+
+					if( button == lastMessage.Button )
+					{
+
+						lastMessage.Multiplier++;
+						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+
+						return;
+
+					}
+
+					if( button == "[PLAY]" && lastMessage.Button == "[STOP]" )
+					{
+
+						lastMessage.Entry.Button.Text = "[PLAY]";
+						lastMessage.Button = "[PLAY]";
+
+						lastMessage.Multiplier++;
+						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+
+						return;
+
+					}
+					else if( button == "[STOP]" && lastMessage.Button == "[PLAY]" )
+					{
+
+						lastMessage.Entry.Button.Text = "[STOP]";
+						lastMessage.Button = "[STOP]";
+
+						lastMessage.Multiplier++;
+						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+
+						return;
+
+					}
+
+					if( button == "[LOOP]" && lastMessage.Button == "[WALL]")
+					{
+
+						lastMessage.Entry.Button.Text = "[LOOP]";
+						lastMessage.Button = "[LOOP]";
+
+						lastMessage.Multiplier++;
+						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+
+						return;
+
+					}
+					else if( button == "[WALL]" && lastMessage.Button == "[LOOP]" )
+					{
+
+						lastMessage.Entry.Button.Text = "[WALL]";
+						lastMessage.Button = "[WALL]";
+
+						lastMessage.Multiplier++;
+						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+
+						return;
+
+					}
+
+				}
+
+			}
+
+			var entry = Canvas.AddChild<ChatEntry>();
+			entry.Message.Text = $"{name} {message} ";
+			entry.Button.Text = button;
+			entry.AddClass( "noname" );
+
+			GameOfLife.ChatMessages.Add( new LogEntry( name, message, entry, button ) );
+
+		}
+
+		public static void SendChatMsg( string name, string message )
+		{
+
+			AddChatMsg( name, message );
+
+			Log.Info( $"{name}: {message}" );
+			GameOfLife.ChatMessages.Add( new LogEntry( name, message ) );
+
+		}
+
+		[ClientRpc]
+		public static void AddChatMsg( string name, string message )
 		{
 
 			if ( !Global.IsListenServer )
@@ -115,71 +246,24 @@ namespace GameOfLife
 
 			}
 
-			if ( GameOfLife.ChatMessages.Count > 0 )
-			{
-
-				// TODO: Find a better way to do this, for the love of God
-
-				var lastMessage = GameOfLife.ChatMessages[ GameOfLife.ChatMessages.Count - 1];
-
-				if ( lastMessage.Message.Contains( "PLAY" ) && message.Contains( "STOP" ) )
-				{
-
-					lastMessage.Entry.Message.Text = lastMessage.Entry.Message.Text.Replace( "PLAY", "STOP" );
-					lastMessage.Message = lastMessage.Message.Replace( "PLAY", "STOP" );
-					lastMessage.Multiplier++;
-					lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
-
-					return;
-
-				}
-
-				if ( lastMessage.Message.Contains( "STOP" ) && message.Contains( "PLAY" ) )
-				{
-
-					lastMessage.Entry.Message.Text = lastMessage.Entry.Message.Text.Replace( "STOP", "PLAY" );
-					lastMessage.Message = lastMessage.Message.Replace( "STOP", "PLAY" );
-					lastMessage.Multiplier++;
-					lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
-
-					return;
-
-				}
-
-				
-
-				if ( lastMessage.Message == message )
-				{
-
-					lastMessage.Multiplier++;
-					lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
-
-					return;
-
-				}
-
-			}
-
 			var entry = Canvas.AddChild<ChatEntry>();
-			entry.Message.Text = message;
 			entry.User.Text = name + ":";
+			entry.Message.Text = message;
 
 			GameOfLife.ChatMessages.Add( new LogEntry( name, message, entry) );
 
-			entry.SetClass( "noname", string.IsNullOrEmpty( name ) );
-
 		}
 
-		[ServerCmd]
+		/*[ServerCmd]
 		public static void SayInfo( string message )
 		{
 
 			Log.Info( message );
-			AddChatEntry( To.Everyone, null, message );
+			SendChatMsg( null, message );
 
 			GameOfLife.ChatMessages.Add( new LogEntry( null, message ) );
 
-		}
+		}*/
 
 		[ServerCmd( "say" )]
 		public static void Say( string message )
@@ -187,12 +271,7 @@ namespace GameOfLife
 
 			Assert.NotNull( ConsoleSystem.Caller );
 
-			if ( message.Contains( '\n' ) || message.Contains( '\r' ) ) return;
-
-			Log.Info( $"{ConsoleSystem.Caller.Name}: {message}" );
-			AddChatEntry( To.Everyone, ConsoleSystem.Caller.Name, message );
-
-			GameOfLife.ChatMessages.Add( new LogEntry( ConsoleSystem.Caller.Name, message ) );
+			SendChatMsg( ConsoleSystem.Caller.Name, message );
 
 		}
 

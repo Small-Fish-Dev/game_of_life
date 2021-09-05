@@ -21,6 +21,8 @@ namespace GameOfLife
 
 			ClearGrid( true );
 
+			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[CLEAR]" );
+
 		}
 		
 		[ServerCmd]
@@ -29,9 +31,7 @@ namespace GameOfLife
 
 			Next( true, ConsoleSystem.Caller );
 
-			//string message = $"{ConsoleSystem.Caller.Name} pressed [NEXT] !";
-
-			//ChatBox.SayInfo( message );
+			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[NEXT]" );
 
 		}
 
@@ -41,10 +41,7 @@ namespace GameOfLife
 
 			Play( isPlaying, true );
 
-
-			//string message = $"{ConsoleSystem.Caller.Name} pressed " + ( isPlaying ? "[PLAY]" : "[STOP]" ) + " !" ;
-
-			//ChatBox.SayInfo( message );
+			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, isPlaying ? "[PLAY]" : "[STOP]" );
 
 		}
 
@@ -54,10 +51,7 @@ namespace GameOfLife
 
 			Loop( isLooping, true );
 
-
-			//string message = $"{ConsoleSystem.Caller.Name} pressed [LOOP] !";
-
-			//ChatBox.SayInfo( message );
+			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, isLooping ? "[LOOP]" : "[WALL]" );
 
 		}
 
@@ -67,10 +61,7 @@ namespace GameOfLife
 
 			SetSpeed( speed, true );
 
-
-			//string message = $"{ConsoleSystem.Caller.Name} pressed [SPEED] !";
-
-			//ChatBox.SayInfo( message );
+			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[SPEED]" ); // TODO: Make it dynamic too
 
 		}
 

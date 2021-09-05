@@ -328,19 +328,7 @@ namespace GameOfLife
 			{
 
 				PlayLabel.SetText( Playing ? "᱿" : "▸" );
-
-				if( Playing )
-				{
-
-					GridPanel.AddClass( "block" );
-
-				}
-				else
-				{
-
-					GridPanel.RemoveClass( "block" );
-
-				}
+				GridPanel.SetClass( "block", Playing);
 
 			}
 

@@ -22,7 +22,7 @@ namespace GameOfLife
 
 				GameHUD = new HUD();
 
-				ChatBox.SayInfo( "Server has been started." );
+				ChatBox.SendChatLog( "Server has been started." );
 
 			}
 
@@ -45,18 +45,19 @@ namespace GameOfLife
 			foreach( LogEntry message in ChatMessages ) 
 			{ 
 			
-				ChatBox.AddChatEntry( To.Single( client ), message.User, message.Message );
+				ChatBox.AddChatLog( To.Single( client ), message.User, message.Message, message.Button );
+				Log.Info( $"SENDING NOW TO USER {message.User} {message.Message} {message.Button}" );
 
 			}
 
-			ChatBox.SayInfo( $"{client.Name} has joined." );
+			ChatBox.SendChatLog( $"{client.Name} has joined." );
 
 		}
 
 		public override void ClientDisconnect( Client client, NetworkDisconnectionReason reason )
 		{
 
-			ChatBox.SayInfo( $"{client.Name} has left." );
+			ChatBox.SendChatLog( $"{client.Name} has left." );
 
 		}
 
