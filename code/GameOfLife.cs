@@ -46,7 +46,6 @@ namespace GameOfLife
 			{ 
 			
 				ChatBox.AddChatLog( To.Single( client ), message.User, message.Message, message.Button );
-				Log.Info( $"SENDING NOW TO USER {message.User} {message.Message} {message.Button}" );
 
 			}
 

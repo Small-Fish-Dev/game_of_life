@@ -61,7 +61,7 @@ namespace GameOfLife
 
 			SetSpeed( speed, true );
 
-			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[SPEED]" ); // TODO: Make it dynamic too
+			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[SPEED]" );
 
 		}
 

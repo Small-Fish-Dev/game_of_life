@@ -162,55 +162,9 @@ namespace GameOfLife
 
 					}
 
-					if( button == "[PLAY]" && lastMessage.Button == "[STOP]" )
-					{
+					if( ToggleButtonText( lastMessage, button, "[PLAY]", "[STOP]" ) ) { return; }
 
-						lastMessage.Entry.Button.Text = "[PLAY]";
-						lastMessage.Button = "[PLAY]";
-
-						lastMessage.Multiplier++;
-						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
-
-						return;
-
-					}
-					else if( button == "[STOP]" && lastMessage.Button == "[PLAY]" )
-					{
-
-						lastMessage.Entry.Button.Text = "[STOP]";
-						lastMessage.Button = "[STOP]";
-
-						lastMessage.Multiplier++;
-						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
-
-						return;
-
-					}
-
-					if( button == "[LOOP]" && lastMessage.Button == "[WALL]")
-					{
-
-						lastMessage.Entry.Button.Text = "[LOOP]";
-						lastMessage.Button = "[LOOP]";
-
-						lastMessage.Multiplier++;
-						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
-
-						return;
-
-					}
-					else if( button == "[WALL]" && lastMessage.Button == "[LOOP]" )
-					{
-
-						lastMessage.Entry.Button.Text = "[WALL]";
-						lastMessage.Button = "[WALL]";
-
-						lastMessage.Multiplier++;
-						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
-
-						return;
-
-					}
+					if( ToggleButtonText( lastMessage, button, "[LOOP]", "[WALL]" ) ) { return; }
 
 				}
 
@@ -254,17 +208,6 @@ namespace GameOfLife
 
 		}
 
-		/*[ServerCmd]
-		public static void SayInfo( string message )
-		{
-
-			Log.Info( message );
-			SendChatMsg( null, message );
-
-			GameOfLife.ChatMessages.Add( new LogEntry( null, message ) );
-
-		}*/
-
 		[ServerCmd( "say" )]
 		public static void Say( string message )
 		{
@@ -272,6 +215,26 @@ namespace GameOfLife
 			Assert.NotNull( ConsoleSystem.Caller );
 
 			SendChatMsg( ConsoleSystem.Caller.Name, message );
+
+		}
+
+		public static bool ToggleButtonText( LogEntry entry, string button, string text1, string text2 )
+		{
+
+			if( entry.Button == text1 && button == text2 || entry.Button == text2 && button == text1 )
+			{
+
+				entry.Entry.Button.Text = button;
+				entry.Button = button;
+
+				entry.Multiplier++;
+				entry.Entry.Multiplier.Text = $" x{entry.Multiplier}";
+
+				return true;
+
+			}
+
+			return false;
 
 		}
 
