@@ -10,8 +10,6 @@ namespace GameOfLife
 	public class GoLHUD : Panel
 	{
 
-		public Panel Grid { get; internal set; }
-
 		public GoLHUD()
 		{
 
@@ -19,7 +17,7 @@ namespace GameOfLife
 
 			var sidebar = Add.Panel( "sidebar" );
 			var tools = Add.Panel( "tools" );
-			Grid = Add.Panel( "grid" );
+			CellGrid.GridPanel = Add.Panel( "grid" );
 
 			var title = sidebar.Add.Panel( "title" );
 			title.Add.Label( "Game of Life" );
@@ -94,9 +92,9 @@ namespace GameOfLife
 
 			} );
 
-			Grid.Style.PixelSnap = 0;
+			CellGrid.GridPanel.Style.PixelSnap = 0;
 
-			Grid.AddChild<CellPanel>();
+			CellGrid.GridPanel.AddChild<CellPanel>();
 			var chat = sidebar.Add.Panel( "chat" );
 			chat.AddChild<ChatBox>();
 
@@ -105,11 +103,13 @@ namespace GameOfLife
 		public override void OnButtonEvent( ButtonEvent e )
 		{
 
+			if ( CellGrid.Playing ) { return; } // TODO: Make it print in chat that you can't while it's playing
+
 			if ( e.Button == "mouseleft" && e.Pressed == true )
 			{
 
-				int x = (int)MathX.Floor( Grid.MousePosition.x / Grid.Box.Rect.width * 50.3f );
-				int y = (int)MathX.Floor( Grid.MousePosition.y / Grid.Box.Rect.height * 50.3f );
+				int x = (int)MathX.Floor( CellGrid.GridPanel.MousePosition.x / CellGrid.GridPanel.Box.Rect.width * 50.3f );
+				int y = (int)MathX.Floor( CellGrid.GridPanel.MousePosition.y / CellGrid.GridPanel.Box.Rect.height * 50.3f );
 
 				if( x >= 0 && x <= CellGrid.GridSize.x && y >= 0 && y <= CellGrid.GridSize.y )
 				{

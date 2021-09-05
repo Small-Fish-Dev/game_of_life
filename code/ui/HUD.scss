@@ -185,6 +185,7 @@ RootPanel {
     }
 
     .grid {
+        cursor: crosshair; //crosshair
         flex-grow: 0;
         flex-shrink: 0;
         aspect-ratio: 1;
@@ -199,6 +200,10 @@ RootPanel {
             aspect-ratio: 1;
             left: 0px;
             top: 0px;
+        }
+
+        &.block {
+            cursor: default;
         }
     }
 }

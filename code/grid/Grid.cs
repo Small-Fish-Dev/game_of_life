@@ -39,6 +39,7 @@ namespace GameOfLife
 		public static bool Playing { get; set; } = false;
 		public static bool Looping { get; set; } = true;
 		public static int Speed { get; set; } = 2; // Relative to the ValidSpeeds list
+		public static Panel GridPanel { get; set; }
 		public static Panel LoopCross { get; set; }
 		public static Label PlayLabel { get; set; }
 		public static Label SpeedLabel { get; set; }
@@ -327,6 +328,19 @@ namespace GameOfLife
 			{
 
 				PlayLabel.SetText( Playing ? "᱿" : "▸" );
+
+				if( Playing )
+				{
+
+					GridPanel.AddClass( "block" );
+
+				}
+				else
+				{
+
+					GridPanel.RemoveClass( "block" );
+
+				}
 
 			}
 
