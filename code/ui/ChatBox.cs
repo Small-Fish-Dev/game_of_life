@@ -134,7 +134,7 @@ namespace GameOfLife
 		}
 
 		[ClientRpc]
-		public static void AddChatLog( string name, string message, string button = null )
+		public static void AddChatLog( string name, string message, string button )
 		{
 
 			if ( !Global.IsListenServer )

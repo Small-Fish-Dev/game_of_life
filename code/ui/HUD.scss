@@ -208,6 +208,14 @@ RootPanel {
     }
 }
 
+info { //FINISH INFO BOX
+    z-index: 0;
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    background-color: red;
+}
+
 chatbox {
     z-index: 100;
     flex-direction: column;

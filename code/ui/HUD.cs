@@ -45,6 +45,7 @@ namespace GameOfLife
 				PlaySound( "click2" );
 
 			} );
+			
 
 			// [NEXT] button
 			var next = tools.Add.Button( "", "buttons" );
@@ -103,7 +104,7 @@ namespace GameOfLife
 		public override void OnButtonEvent( ButtonEvent e )
 		{
 
-			if ( CellGrid.Playing ) { return; } // TODO: Make it print in chat that you can't while it's playing
+			if ( CellGrid.Playing ) { return; }
 
 			if ( e.Button == "mouseleft" && e.Pressed == true )
 			{
@@ -116,9 +117,9 @@ namespace GameOfLife
 
 					CellGrid.UpdateCell( x, y, !CellGrid.Cell( x, y ).Alive, true );
 
-				}
+					PlaySound( "click1" );
 
-				PlaySound( "click1" );
+				}
 
 			}
 
