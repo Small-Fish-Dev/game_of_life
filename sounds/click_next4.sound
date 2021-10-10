@@ -4,12 +4,12 @@
 	{
 		sounds = 
 		[
-			"sounds/click1.vsnd",
+			"sounds/click.vsnd",
 		]
 		UI = true
-		Volume = 1.0
+		Volume = 0.015
 		VolumeRandom = 0.0
-		Pitch = 1.7
+		Pitch = 1.0
 		PitchRandom = 0.2
 		DistanceMax = 1000.0
 	}

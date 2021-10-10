@@ -242,6 +242,7 @@ chatbox {
     .chat_canvas {
         flex-direction: column;
         justify-content: flex-start;
+        height: 100%;
         overflow: scroll;
     }
 
@@ -260,8 +261,8 @@ chatentry {
     min-height: 26px;
     flex-shrink: 0;
     flex-grow: 0;
-    padding: 3px 20px 3px 20px;
-    max-width: 88%;
+    padding: 6px 15px 0px 20px;
+    overflow-wrap: break-word;
 
     .name {
         padding-right: 10px;
@@ -274,7 +275,7 @@ chatentry {
     .message {
         color: #ccc;
         font-size: 18px;
-        flex-shrink: 0;
+        flex-shrink: 1;
     }
 
     .button {
@@ -282,13 +283,12 @@ chatentry {
         font-size: 18px;
         font-weight: bold;
         flex-shrink: 0;
-
     }
 
     .multiplier {
         color: #8E942F;
         font-size: 18px;
-        flex-shrink: 0;
+        flex-shrink: 1;
     }
 
     &.noname .name {

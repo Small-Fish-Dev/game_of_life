@@ -23,8 +23,8 @@ namespace GameOfLife
 			title.Add.Label( "Game of Life" );
 
 			var patterns = sidebar.Add.Panel( "patterns" );
-			var patternsTitle = patterns.Add.Panel( "patternstitle" );
-			patternsTitle.Add.Label( "Patterns" );
+			var patternsTitle = patterns.Add.Panel( "patternstitle");
+			patternsTitle.Add.Label( "Patterns (Coming Soon?)" );
 			var patternsContainer = patterns.Add.Panel( "patterncontainer" );
 
 			for( int i = 0; i < 100; i++)
@@ -42,7 +42,7 @@ namespace GameOfLife
 			{
 
 				CellGrid.Play( !CellGrid.Playing, true );
-				PlaySound( "click2" );
+				PlaySound( "click_button" );
 
 			} );
 			
@@ -54,7 +54,7 @@ namespace GameOfLife
 			{
 
 				CellGrid.Next( true );
-				PlaySound( "click2" );
+				PlaySound( "click_button" );
 
 			} );
 
@@ -65,7 +65,7 @@ namespace GameOfLife
 			{
 
 				CellGrid.ClearGrid( true );
-				PlaySound( "click2" );
+				PlaySound( "click_button" );
 
 			} );
 
@@ -78,7 +78,7 @@ namespace GameOfLife
 			{
 
 				CellGrid.Loop( !CellGrid.Looping, true );
-				PlaySound( "click2" );
+				PlaySound( "click_button" );
 
 			} );
 
@@ -89,7 +89,7 @@ namespace GameOfLife
 			{
 
 				CellGrid.SetSpeed( (CellGrid.Speed + 1 ) % CellGrid.ValidSpeeds.Count , true );
-				PlaySound( "click2" );
+				PlaySound( "click_button" );
 
 			} );
 
@@ -117,7 +117,7 @@ namespace GameOfLife
 
 					CellGrid.UpdateCell( x, y, !CellGrid.Cell( x, y ).Alive, true );
 
-					PlaySound( "click1" );
+					PlaySound( "click_cell" );
 
 				}
 

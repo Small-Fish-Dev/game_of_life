@@ -23,6 +23,7 @@ namespace GameOfLife
 				GameHUD = new HUD();
 
 				ChatBox.SendChatLog( "Server has been started." );
+				ChatBox.SendChatLog( "Hello, this is my first serious attempt at making a gamemode, it is still very much in development but I thought that now was a good time to get people to test it. For suggestions message ubre on discord" );
 
 			}
 
@@ -51,6 +52,8 @@ namespace GameOfLife
 
 			ChatBox.SendChatLog( $"{client.Name} has joined." );
 
+			PlaySound( "blippy" );
+
 		}
 
 		public override void ClientDisconnect( Client client, NetworkDisconnectionReason reason )
@@ -75,6 +78,7 @@ namespace GameOfLife
 					lastFrame = Time.Now + 1/(float)CellGrid.ValidSpeeds[CellGrid.Speed];
 
 					CellGrid.Next( true );
+					PlaySound( $"click_next{CellGrid.Speed}" );
 
 				}
 
