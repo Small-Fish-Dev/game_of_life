@@ -37,7 +37,7 @@ namespace GameOfLife
 
 			// [PLAY] button
 			var play = tools.Add.Button( "", "buttons" );
-			CellGrid.PlayLabel = play.Add.Label( "▸", "play" );
+			CellGrid.PlayLabel = play.Add.Label( CellGrid.Playing ? "᱿" : "▸", "play" );
 			play.AddEventListener( "onclick", () =>
 			{
 
@@ -73,7 +73,7 @@ namespace GameOfLife
 			var loop = tools.Add.Button( "", "buttons" );
 			loop.Add.Label( "⟳", "loop" );
 			CellGrid.LoopCross = loop.Add.Label( "✕", "cross" );
-			CellGrid.LoopCross.Style.Opacity = 0;
+			CellGrid.LoopCross.Style.Opacity = CellGrid.Looping ? 0 : 1;
 			loop.AddEventListener( "onclick", () =>
 			{
 
@@ -84,7 +84,7 @@ namespace GameOfLife
 
 			// [SPEED] button
 			var speed = tools.Add.Button( "", "buttons" );
-			CellGrid.SpeedLabel = speed.Add.Label( "⨯1", "speed" );
+			CellGrid.SpeedLabel = speed.Add.Label( $"⨯{(float)CellGrid.ValidSpeeds[CellGrid.Speed] / 10}", "speed" );
 			speed.AddEventListener( "onclick", () =>
 			{
 

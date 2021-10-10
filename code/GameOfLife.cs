@@ -32,8 +32,6 @@ namespace GameOfLife
 		public override void ClientJoined( Client client )
 		{
 
-			base.ClientJoined( client );
-
 			ushort[] package = CellGrid.GeneratePackage();
 
 			if ( package.Length > 0 )
@@ -50,9 +48,11 @@ namespace GameOfLife
 
 			}
 
+
+
 			ChatBox.SendChatLog( $"{client.Name} has joined." );
 
-			PlaySound( "blippy" );
+			PlayMusic( To.Single( client ) );
 
 		}
 
@@ -61,6 +61,12 @@ namespace GameOfLife
 
 			ChatBox.SendChatLog( $"{client.Name} has left." );
 
+		}
+
+		[ClientRpc]
+		public void PlayMusic()
+		{
+			PlaySound( "blippy" );
 		}
 
 		private float lastFrame = 0f;
