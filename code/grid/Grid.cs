@@ -7,35 +7,11 @@ using System.Collections.Generic;
 namespace GameOfLife
 {
 
-	public class Cell
-	{
-
-		public bool Alive { get; set; } = false;
-		public Shadow Shadow { get; set; }
-
-	}
-
-	public struct Vector2Int
-	{
-
-		public int x;
-		public int y;
-
-		public Vector2Int( int x, int y)
-		{
-			this.x = x;
-			this.y = y;
-		}
-
-	}
-
 	public static partial class CellGrid
 	{
 
-		public readonly static Vector2Int GridSize = new( 50, 50 );
-		private static Dictionary<Vector2Int, Cell> cells = new();
-		public static List<Vector2Int> ActiveCells = new();
-		public static Panel CellPanel { get; set; }
+		public static int GridWidth = 50;
+		public static int GridHeight = 50;
 		public static bool Playing { get; set; } = false;
 		public static bool Looping { get; set; } = true;
 		public static int Speed { get; set; } = 2; // Relative to the ValidSpeeds list
@@ -43,28 +19,14 @@ namespace GameOfLife
 		public static Panel LoopCross { get; set; }
 		public static Label PlayLabel { get; set; }
 		public static Label SpeedLabel { get; set; }
+		public static bool[,] Cells = new bool[GridWidth, GridHeight];
+		public static List<Vector2> ActiveCells = new();
 
 		public static List<int> ValidSpeeds { get; set; } = new() { 1, 5, 10, 20, 50 };
 
 		static CellGrid()
 		{
 
-			BuildGrid( GridSize.x, GridSize.y );
-
-		}
-
-		public static Cell Cell( int x, int y )
-		{
-
-			if( Looping )
-			{
-
-				x = LoopAround( x, GridSize.x );
-				y = LoopAround( y, GridSize.y );
-
-			}
-
-			return cells[new Vector2Int( x, y )];
 
 		}
 
@@ -80,61 +42,36 @@ namespace GameOfLife
 
 		}
 
-		public static void BuildGrid( int sizeX, int sizeY )
-		{
-
-			cells.Clear();
-
-			for ( int x = 0; x < GridSize.x; x++ )
-			{
-
-				for ( int y = 0; y < GridSize.y; y++ )
-				{
-
-					cells.Add( new Vector2Int( x, y ), new Cell() );
-
-				}
-
-			}
-
-		}
-
 		public static void UpdateCell( int x, int y, bool state, bool networked = false )
 		{
 
-			if( Cell( x, y ).Alive == state )
+			if( Looping )
+			{
+
+				x = LoopAround( x, GridWidth );
+				y = LoopAround( y, GridHeight );
+
+			}
+
+			if( Cells[x, y] == state )
 			{
 
 				return;
 
 			}
 
-			Cell( x, y ).Alive = state;
+			Cells[x, y] = state;
 
 			if ( state )
 			{
 
-				ActiveCells.Add( new Vector2Int( x, y ) );
+				ActiveCells.Add( new Vector2( x, y ) );
 
 			}
 			else
 			{
 
-				ActiveCells.Remove( new Vector2Int( x, y ) );
-
-			}
-
-			if ( Host.IsClient )
-			{
-
-				CellPanel.Style.BoxShadow[x * GridSize.y + y] = new Shadow 
-				{
-					OffsetX = Cell( x, y ).Shadow.OffsetX,
-					OffsetY = Cell( x, y ).Shadow.OffsetY,
-					Color = state ? Color.White : Color.Black
-				};
-
-				CellPanel.Style.Dirty();
+				ActiveCells.Remove( new Vector2( x, y ) );
 
 			}
 
@@ -161,12 +98,12 @@ namespace GameOfLife
 		public static void ClearGrid( bool networked = false )
 		{
 
-			List<Vector2Int> oldGrid = new( ActiveCells );
+			List<Vector2> oldGrid = new( ActiveCells );
 
-			oldGrid.ForEach( delegate ( Vector2Int pos )
+			oldGrid.ForEach( delegate ( Vector2 pos )
 			{
 
-				UpdateCell( pos.x, pos.y, false );
+				UpdateCell( (int)pos.x, (int)pos.y, false );
 
 			} );
 
@@ -193,10 +130,10 @@ namespace GameOfLife
 		public static void Next( bool networked = false, Client caller = null )
 		{
 
-			Dictionary<Vector2Int, bool> newGeneration = new();
-			Dictionary<Vector2Int, int> neighbourCount = new();
+			Dictionary<Vector2, bool> newGeneration = new();
+			Dictionary<Vector2, int> neighbourCount = new();
 
-			ActiveCells.ForEach( delegate ( Vector2Int pos )
+			ActiveCells.ForEach( delegate ( Vector2 pos )
 			{
 
 				for ( int x = -1; x <= 1; x++ )
@@ -205,7 +142,7 @@ namespace GameOfLife
 					for ( int y = -1; y <= 1; y++ )
 					{
 
-						var checkPos = new Vector2Int( pos.x + x, pos.y + y );
+						var checkPos = new Vector2( pos.x + x, pos.y + y );
 
 						if ( x == 0 && y == 0 ) {
 
@@ -223,15 +160,15 @@ namespace GameOfLife
 						if( Looping )
 						{
 
-							checkPos.x = LoopAround( checkPos.x, GridSize.x );
-							checkPos.y = LoopAround( checkPos.y, GridSize.y );
+							checkPos.x = LoopAround( (int)checkPos.x, GridWidth );
+							checkPos.y = LoopAround( (int)checkPos.y, GridHeight );
 
 						}
 						else
 						{
 
-							if ( checkPos.x >= GridSize.x || checkPos.x < 0 ) { continue; }
-							if ( checkPos.y >= GridSize.y || checkPos.y < 0 ) { continue; }
+							if ( checkPos.x >= GridWidth || checkPos.x < 0 ) { continue; }
+							if ( checkPos.y >= GridHeight || checkPos.y < 0 ) { continue; }
 
 						}
 
@@ -254,10 +191,10 @@ namespace GameOfLife
 
 			} );
 
-			foreach ( KeyValuePair<Vector2Int, int> curCell in neighbourCount )
+			foreach ( KeyValuePair<Vector2, int> curCell in neighbourCount )
 			{
 
-				if ( CellGrid.Cell( curCell.Key.x, curCell.Key.y ).Alive )
+				if ( CellGrid.Cells[(int)curCell.Key.x, (int)curCell.Key.y] )
 				{
 
 					if ( curCell.Value < 2 || curCell.Value > 3 )
@@ -282,10 +219,10 @@ namespace GameOfLife
 
 			};
 
-			foreach ( KeyValuePair<Vector2Int, bool> newCell in newGeneration )
+			foreach ( KeyValuePair<Vector2, bool> newCell in newGeneration )
 			{
 
-				UpdateCell( newCell.Key.x, newCell.Key.y, newCell.Value );
+				UpdateCell( (int)newCell.Key.x, (int)newCell.Key.y, newCell.Value );
 
 			}
 
@@ -298,7 +235,7 @@ namespace GameOfLife
 					foreach ( Client client in Client.All )
 					{
 
-						if( client != caller )
+						if( client != caller ) // TODO: Does this even work?
 						{
 
 							BroadcastNext( To.Single( client ) ); // Send to everyone except the caller
@@ -423,10 +360,10 @@ namespace GameOfLife
 
 			List<ushort> package = new();
 
-			foreach ( Vector2Int cell in ActiveCells )
+			foreach ( Vector2 cell in ActiveCells )
 			{
 
-				ushort cellPos = (ushort)( GridSize.y * cell.y + cell.x );
+				ushort cellPos = (ushort)( GridHeight * cell.y + cell.x );
 
 				package.Add( cellPos );
 

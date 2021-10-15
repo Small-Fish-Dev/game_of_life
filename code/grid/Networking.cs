@@ -122,8 +122,8 @@ namespace GameOfLife
 			foreach ( ushort cell in grid )
 			{
 
-				int posX = cell % CellGrid.GridSize.x;
-				int posY = (int)MathX.Floor( cell / CellGrid.GridSize.x );
+				int posX = cell % CellGrid.GridWidth;
+				int posY = (int)MathX.Floor( cell / CellGrid.GridWidth );
 
 				UpdateCell( posX, posY, true );
 

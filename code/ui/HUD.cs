@@ -18,6 +18,7 @@ namespace GameOfLife
 			var sidebar = Add.Panel( "sidebar" );
 			var tools = Add.Panel( "tools" );
 			CellGrid.GridPanel = Add.Panel( "grid" );
+			CellGrid.GridPanel.AddChild<GridPanel>();
 
 			var title = sidebar.Add.Panel( "title" );
 			title.Add.Label( "Game of Life" );
@@ -93,9 +94,6 @@ namespace GameOfLife
 
 			} );
 
-			CellGrid.GridPanel.Style.PixelSnap = 0;
-
-			CellGrid.GridPanel.AddChild<CellPanel>();
 			var chat = sidebar.Add.Panel( "chat" );
 			chat.AddChild<ChatBox>();
 
@@ -109,55 +107,19 @@ namespace GameOfLife
 			if ( e.Button == "mouseleft" && e.Pressed == true )
 			{
 
-				int x = (int)MathX.Floor( CellGrid.GridPanel.MousePosition.x / CellGrid.GridPanel.Box.Rect.width * 50.3f );
-				int y = (int)MathX.Floor( CellGrid.GridPanel.MousePosition.y / CellGrid.GridPanel.Box.Rect.height * 50.3f );
+				int x = (int)MathX.Floor( CellGrid.GridPanel.MousePosition.x / CellGrid.GridPanel.Box.Rect.width * CellGrid.GridWidth );
+				int y = (int)MathX.Floor( CellGrid.GridPanel.MousePosition.y / CellGrid.GridPanel.Box.Rect.height * CellGrid.GridHeight );
 
-				if( x >= 0 && x <= CellGrid.GridSize.x && y >= 0 && y <= CellGrid.GridSize.y )
+				if( x >= 0 && x <= CellGrid.GridWidth && y >= 0 && y <= CellGrid.GridHeight )
 				{
 
-					CellGrid.UpdateCell( x, y, !CellGrid.Cell( x, y ).Alive, true );
+					CellGrid.UpdateCell( x, y, !CellGrid.Cells[x, y], true );
 
 					PlaySound( "click_cell" );
 
 				}
 
 			}
-
-		}
-
-	}
-
-	public class CellPanel : Panel
-	{
-
-		public CellPanel()
-		{
-
-			var panel = Add.Panel( "cell" );
-
-			panel.Style.PixelSnap = 0;
-
-			CellGrid.CellPanel = panel;
-
-			var shadowList = new ShadowList();
-
-			for ( int x = 0; x < CellGrid.GridSize.x; x++ )
-			{
-
-				for ( int y = 0; y < CellGrid.GridSize.y; y++ )
-				{
-
-					var shadow = new Shadow { OffsetX = x * 19.24f + 3, OffsetY = y * 19.24f + 3, Color = Color.Black };
-
-					CellGrid.Cell( x, y ).Shadow = shadow;
-
-					shadowList.Add( shadow );
-
-				}
-
-			}
-
-			panel.Style.BoxShadow = shadowList;
 
 		}
 
@@ -174,6 +136,43 @@ namespace GameOfLife
 			var panel = Add.Panel( "pattern" );
 			var entryName = panel.Add.Panel( "name" );
 			entryName.Add.Label( names[new Random().Int( 0, 6 )] );
+
+		}
+
+	}
+
+	public class GridPanel : Panel
+	{
+
+		public GridPanel()
+		{
+
+		}
+
+		public override void DrawBackground( ref RenderState state )
+		{
+
+			var sizeX = CellGrid.GridWidth;
+			var sizeY = CellGrid.GridHeight;
+			var width = CellGrid.GridPanel.Box.Rect.width - 6; // The white border shifts the cells if not accounted for.
+			var height = CellGrid.GridPanel.Box.Rect.height - 6; // Style.BorderWidth doesn't work!
+			var cellWidth = width / sizeX;
+			var cellHeight = width / sizeY;
+			var cellGap = 2;
+
+			for ( int x = 0; x < sizeX; x++ )
+			{
+
+				for ( int y = 0; y < sizeY; y++ )
+				{
+
+					Render.UI.Box( new Rect( this.Box.Left + x * cellWidth + cellGap * this.ScaleToScreen / 2, this.Box.Top + y * cellHeight + cellGap * this.ScaleToScreen / 2, cellWidth - cellGap * this.ScaleToScreen, cellHeight - cellGap * this.ScaleToScreen ),  CellGrid.Cells[x, y] ? Color.White : Color.Black );
+
+
+				}
+
+
+			}
 
 		}
 

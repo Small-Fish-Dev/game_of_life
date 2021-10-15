@@ -185,22 +185,14 @@ RootPanel {
     }
 
     .grid {
-        cursor: crosshair; //crosshair
+        cursor: crosshair; 
         flex-grow: 0;
-        flex-shrink: 0;
+        flex-shrink: 0; // Ideally it would shrink, but it screws up the cells
         aspect-ratio: 1;
         height: 90%;
         align-self: center;
         background-color: #202224;
         border: 3px solid white;
-
-        .cell {
-            background-color: none;
-            width: 13%;
-            aspect-ratio: 1;
-            left: 0px;
-            top: 0px;
-        }
 
         &.block {
             cursor: default;
