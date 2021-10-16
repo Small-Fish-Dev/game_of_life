@@ -94,6 +94,31 @@ namespace GameOfLife
 
 			} );
 
+			// [++] button
+			var plus = tools.Add.Button( "+", "buttons" );
+			plus.AddEventListener( "onclick", () =>
+			{
+
+				CellGrid.GridWidth++;
+				CellGrid.GridHeight++;
+				CellGrid.ClearGrid();
+				CellGrid.Cells = new bool[CellGrid.GridWidth, CellGrid.GridHeight];
+				PlaySound( "click_button" );
+
+			} );
+			// [--] button
+			var minus = tools.Add.Button( "-", "buttons" );
+			minus.AddEventListener( "onclick", () =>
+			{
+
+				CellGrid.GridWidth--;
+				CellGrid.GridHeight--;
+				CellGrid.ClearGrid();
+				CellGrid.Cells = new bool[CellGrid.GridWidth, CellGrid.GridHeight];
+				PlaySound( "click_button" );
+
+			} );
+
 			var chat = sidebar.Add.Panel( "chat" );
 			chat.AddChild<ChatBox>();
 
@@ -152,18 +177,16 @@ namespace GameOfLife
 		public override void DrawBackground( ref RenderState state )
 		{
 
-			var sizeX = CellGrid.GridWidth;
-			var sizeY = CellGrid.GridHeight;
 			var width = CellGrid.GridPanel.Box.Rect.width - 6; // The white border shifts the cells if not accounted for.
 			var height = CellGrid.GridPanel.Box.Rect.height - 6; // Style.BorderWidth doesn't work!
-			var cellWidth = width / sizeX;
-			var cellHeight = width / sizeY;
-			var cellGap = 2;
+			var cellWidth = width / CellGrid.GridWidth;
+			var cellHeight = width / CellGrid.GridHeight;
+			var cellGap = Math.Max( 2 * ( 50 / CellGrid.GridWidth ), 1 );
 
-			for ( int x = 0; x < sizeX; x++ )
+			for ( int x = 0; x < CellGrid.GridWidth; x++ )
 			{
 
-				for ( int y = 0; y < sizeY; y++ )
+				for ( int y = 0; y < CellGrid.GridHeight; y++ )
 				{
 
 					Render.UI.Box( new Rect( this.Box.Left + x * cellWidth + cellGap * this.ScaleToScreen / 2, this.Box.Top + y * cellHeight + cellGap * this.ScaleToScreen / 2, cellWidth - cellGap * this.ScaleToScreen, cellHeight - cellGap * this.ScaleToScreen ),  CellGrid.Cells[x, y] ? Color.White : Color.Black );
