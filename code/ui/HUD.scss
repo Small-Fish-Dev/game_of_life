@@ -242,6 +242,8 @@ chatbox {
         textentry {
             opacity: 1;
             color: white;
+            align-items: center;
+            min-height: 55px;
         }
     }
 }
@@ -250,7 +252,7 @@ chatentry {
     margin-bottom: 5px;
     color: white;
     opacity: 1;
-    min-height: 26px;
+    min-height: 30px;
     flex-shrink: 0;
     flex-grow: 0;
     padding: 6px 15px 0px 20px;
@@ -280,7 +282,7 @@ chatentry {
     .multiplier {
         color: #8E942F;
         font-size: 18px;
-        flex-shrink: 1;
+        flex-shrink: 0;
     }
 
     &.noname .name {
