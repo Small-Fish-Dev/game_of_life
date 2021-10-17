@@ -174,6 +174,22 @@ RootPanel {
                 padding-top: 13px;
             }
 
+            .plus {
+                font-size: 53px;
+                font-family: Arial;
+                color: white;
+                padding-top: 10px;
+                padding-right: 4px;
+            }
+
+            .minus {
+                font-size: 60px;
+                font-family: Arial;
+                color: white;
+                padding-top: 2px;
+                padding-right: 5px;
+            }
+
             &:hover {
                 background-color: #301B3F;
             }
@@ -185,7 +201,7 @@ RootPanel {
     }
 
     .grid {
-        cursor: crosshair; 
+        cursor: crosshair;
         flex-grow: 0;
         flex-shrink: 0; // Ideally it would shrink, but it screws up the cells
         aspect-ratio: 1;

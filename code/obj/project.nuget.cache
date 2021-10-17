@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4H8l8br6qNZglXn4ht2NN4feWJCB9GyICzEs+sRx+deJPsbYNxccprIaljWPZPZpOe4DTWIwlI6ytdzIrwiBWQ==",
+  "dgSpecHash": "QX2eztpfGNsHM+5AgCn1UiwXVPYuWZAadBfpfx8r2wE1mmdxYG9ja7ZB0FFeJLAEc7aqLKH+rVXonAM1P/xMLQ==",
   "success": true,
-  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\game_of_life\\code\\game_of_life.csproj",
+  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\Addons\\game_of_life\\code\\game_of_life.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

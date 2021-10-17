@@ -26,8 +26,6 @@ namespace GameOfLife
 		static CellGrid()
 		{
 
-
-
 		}
 
 		public static int LoopAround( int variable, int max )
@@ -358,10 +356,25 @@ namespace GameOfLife
 		public static void SetSize( int newSize, bool networked = false)
 		{
 
-			ClearGrid();
+			if ( newSize < 3 || newSize > 256) return;
 
+			List<Vector2> oldCells = new( ActiveCells );
+
+			ClearGrid( false );
 			GridSize = newSize;
 			Cells = new bool[ newSize, newSize ];
+
+			foreach ( Vector2 cell in oldCells )
+			{
+
+				if ( cell.x < GridSize && cell.y < GridSize )
+				{
+
+					UpdateCell( (int)cell.x, (int)cell.y, true, false );
+
+				}
+
+			}
 
 			if ( networked )
 			{

@@ -94,8 +94,9 @@ namespace GameOfLife
 
 			} );
 
-			// [++] button
-			var plus = tools.Add.Button( "+", "buttons" );
+			// [SIZE]+ button
+			var plus = tools.Add.Button( "", "buttons" );
+			plus.Add.Label( "+", "plus" );
 			plus.AddEventListener( "onclick", () =>
 			{
 
@@ -103,8 +104,9 @@ namespace GameOfLife
 				PlaySound( "click_button" );
 
 			} );
-			// [--] button
-			var minus = tools.Add.Button( "-", "buttons" );
+			// [SIZE]- button
+			var minus = tools.Add.Button( "", "buttons" );
+			minus.Add.Label( "-", "minus" );
 			minus.AddEventListener( "onclick", () =>
 			{
 
