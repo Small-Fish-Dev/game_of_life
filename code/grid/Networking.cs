@@ -65,6 +65,16 @@ namespace GameOfLife
 
 		}
 
+		[ServerCmd]
+		public static void NetworkSize( int size )
+		{
+
+			SetSize( size, true );
+
+			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[SIZE]" );
+
+		}
+
 
 		[ClientRpc]
 		public static void BroadcastUpdate( int x, int y, bool state )
@@ -114,6 +124,14 @@ namespace GameOfLife
 
 		}
 
+		[ClientRpc]
+		public static void BroadcastSize( int size )
+		{
+
+			SetSize( size );
+
+		}
+
 
 		[ClientRpc]
 		public static void BroadcastGrid( ushort[] grid )
@@ -122,8 +140,8 @@ namespace GameOfLife
 			foreach ( ushort cell in grid )
 			{
 
-				int posX = cell % CellGrid.GridWidth;
-				int posY = (int)MathX.Floor( cell / CellGrid.GridWidth );
+				int posX = cell % CellGrid.GridSize;
+				int posY = (int)MathX.Floor( cell / CellGrid.GridSize );
 
 				UpdateCell( posX, posY, true );
 

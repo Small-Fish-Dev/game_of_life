@@ -10,8 +10,7 @@ namespace GameOfLife
 	public static partial class CellGrid
 	{
 
-		public static int GridWidth = 50;
-		public static int GridHeight = 50;
+		public static int GridSize { get; set; } = 50;
 		public static bool Playing { get; set; } = false;
 		public static bool Looping { get; set; } = true;
 		public static int Speed { get; set; } = 2; // Relative to the ValidSpeeds list
@@ -19,13 +18,14 @@ namespace GameOfLife
 		public static Panel LoopCross { get; set; }
 		public static Label PlayLabel { get; set; }
 		public static Label SpeedLabel { get; set; }
-		public static bool[,] Cells = new bool[GridWidth, GridHeight];
+		public static bool[,] Cells { get; set; } = new bool[GridSize, GridSize];
 		public static List<Vector2> ActiveCells = new();
 
 		public static List<int> ValidSpeeds { get; set; } = new() { 1, 5, 10, 20, 50 };
 
 		static CellGrid()
 		{
+
 
 
 		}
@@ -48,8 +48,8 @@ namespace GameOfLife
 			if( Looping )
 			{
 
-				x = LoopAround( x, GridWidth );
-				y = LoopAround( y, GridHeight );
+				x = LoopAround( x, GridSize );
+				y = LoopAround( y, GridSize );
 
 			}
 
@@ -160,15 +160,15 @@ namespace GameOfLife
 						if( Looping )
 						{
 
-							checkPos.x = LoopAround( (int)checkPos.x, GridWidth );
-							checkPos.y = LoopAround( (int)checkPos.y, GridHeight );
+							checkPos.x = LoopAround( (int)checkPos.x, GridSize );
+							checkPos.y = LoopAround( (int)checkPos.y, GridSize );
 
 						}
 						else
 						{
 
-							if ( checkPos.x >= GridWidth || checkPos.x < 0 ) { continue; }
-							if ( checkPos.y >= GridHeight || checkPos.y < 0 ) { continue; }
+							if ( checkPos.x >= GridSize || checkPos.x < 0 ) { continue; }
+							if ( checkPos.y >= GridSize || checkPos.y < 0 ) { continue; }
 
 						}
 
@@ -355,6 +355,34 @@ namespace GameOfLife
 
 		}
 
+		public static void SetSize( int newSize, bool networked = false)
+		{
+
+			ClearGrid();
+
+			GridSize = newSize;
+			Cells = new bool[ newSize, newSize ];
+
+			if ( networked )
+			{
+
+				if ( Host.IsServer )
+				{
+
+					BroadcastSize( newSize );
+
+				}
+				else
+				{
+
+					NetworkSize( newSize );
+
+				}
+
+			}
+
+		}
+
 		public static ushort[] GeneratePackage()
 		{
 
@@ -363,7 +391,7 @@ namespace GameOfLife
 			foreach ( Vector2 cell in ActiveCells )
 			{
 
-				ushort cellPos = (ushort)( GridHeight * cell.y + cell.x );
+				ushort cellPos = (ushort)( GridSize * cell.y + cell.x );
 
 				package.Add( cellPos );
 
