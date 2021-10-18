@@ -10,7 +10,6 @@ RootPanel {
     pointer-events: all;
     flex-direction: row;
     justify-content: center;
-    justify-items: center;
     align-items: center;
     align-content: stretch;
     flex-wrap: nowrap;
@@ -231,7 +230,6 @@ chatbox {
     font-family: Poxel-Font;
     font-size: 18px;
     justify-content: flex-end;
-    justify-items: flex-end;
 
     .textentry {
         opacity: 0.5;
@@ -272,7 +270,6 @@ chatentry {
     flex-shrink: 0;
     flex-grow: 0;
     padding: 6px 15px 0px 20px;
-    overflow-wrap: break-word;
 
     .name {
         padding-right: 10px;
