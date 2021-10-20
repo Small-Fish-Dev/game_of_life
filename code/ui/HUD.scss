@@ -202,7 +202,7 @@ RootPanel {
     .grid {
         cursor: crosshair;
         flex-grow: 0;
-        flex-shrink: 0; // Ideally it would shrink, but it screws up the cells
+        flex-shrink: 1;
         aspect-ratio: 1;
         height: 90%;
         align-self: center;

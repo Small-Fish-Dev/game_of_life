@@ -17,8 +17,7 @@ namespace GameOfLife
 
 			var sidebar = Add.Panel( "sidebar" );
 			var tools = Add.Panel( "tools" );
-			CellGrid.GridPanel = Add.Panel( "grid" );
-			CellGrid.GridPanel.AddChild<GridPanel>();
+			CellGrid.GridPanel = AddChild<GridPanel>("grid");
 
 			var title = sidebar.Add.Panel( "title" );
 			title.Add.Label( "Game of Life" );
@@ -209,8 +208,9 @@ namespace GameOfLife
 		public override void DrawBackground( ref RenderState state )
 		{
 
-			var width = CellGrid.GridPanel.Box.Rect.width - 6; // The white border shifts the cells if not accounted for.
-			var height = CellGrid.GridPanel.Box.Rect.height - 6; // Style.BorderWidth doesn't work!
+			var border = 6; // Border is annoying!
+			var width = this.Box.Rect.width - border;
+			var height = this.Box.Rect.height - border;
 			var cellWidth = width / CellGrid.GridSize;
 			var cellHeight = width / CellGrid.GridSize;
 			var cellGap = Math.Max( 2 * ( 50 / CellGrid.GridSize ), 1 );
@@ -221,7 +221,7 @@ namespace GameOfLife
 				for ( int y = 0; y < CellGrid.GridSize; y++ )
 				{
 
-					Render.UI.Box( new Rect( this.Box.Left + x * cellWidth + cellGap * this.ScaleToScreen / 2, this.Box.Top + y * cellHeight + cellGap * this.ScaleToScreen / 2, cellWidth - cellGap * this.ScaleToScreen, cellHeight - cellGap * this.ScaleToScreen ),  CellGrid.Cells[x, y] ? Color.White : Color.Black );
+					Render.UI.Box( new Rect( this.Box.Left + x * cellWidth + cellGap * this.ScaleToScreen / 2 + border / 2, this.Box.Top + y * cellHeight + cellGap * this.ScaleToScreen / 2 + border / 2, cellWidth - cellGap * this.ScaleToScreen, cellHeight - cellGap * this.ScaleToScreen ),  CellGrid.Cells[x, y] ? Color.White : Color.Black );
 
 
 				}
