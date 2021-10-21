@@ -21,25 +21,20 @@ RootPanel {
         flex-shrink: 0;
         width: 660px;
         justify-content: center;
-        position: relative;
+        align-items: center;
 
         .title {
-            aspect-ratio: 5;
-            justify-content: center;
+            font-family: poxel-font;
+            font-size: 100px;
+            color: white;
             align-items: center;
-
-            label {
-                font-family: poxel-font;
-                font-size: 100px;
-                color: white;
-            }
         }
 
         .patterns {
+            width: 100%;
             flex-direction: column;
             height: 500px;
             border: 3px solid white;
-            justify-content: flex-start;
             border-radius: 20px 20px 0px 0px;
 
             .patternstitle {
@@ -47,15 +42,13 @@ RootPanel {
                 flex-shrink: 0;
                 padding: 5px 0px 5px 0px;
                 border-bottom: 2px solid white;
-                justify-content: center;
                 background-color: #1f1c2b;
                 border-radius: 20px 20px 0px 0px;
-
-                label {
-                    font-family: poxel-font;
-                    font-size: 40px;
-                    color: white;
-                }
+                font-family: poxel-font;
+                font-size: 40px;
+                justify-content: center;
+                align-items: center;
+                color: white;
             }
 
             .patterncontainer {
@@ -223,7 +216,7 @@ info { //FINISH INFO BOX
     background-color: red;
 }
 
-chatbox {
+ChatPanel {
     z-index: 100;
     flex-direction: column;
     width: 100%;

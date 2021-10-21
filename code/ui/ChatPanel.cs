@@ -66,13 +66,13 @@ namespace GameOfLife
 
 	}
 
-	public partial class ChatBox : Panel
+	public partial class ChatPanel : Panel
 	{
 
 		public static Panel Canvas { get; protected set; }
 		public TextEntry Input { get; protected set; }
 
-		public ChatBox()
+		public ChatPanel()
 		{
 
 			StyleSheet.Load( "ui/HUD.scss" );

@@ -22,8 +22,8 @@ namespace GameOfLife
 
 				GameHUD = new HUD();
 
-				ChatBox.SendChatLog( "Server has been started." );
-				ChatBox.SendChatLog( "Hello, this is my first serious attempt at making a gamemode, it is still very much in development but I thought that now was a good time to get people to test it. For suggestions message ubre on discord" );
+				ChatPanel.SendChatLog( "Server has been started." );
+				ChatPanel.SendChatLog( "Hello, this is my first serious attempt at making a gamemode, it is still very much in development but I thought that now was a good time to get people to test it. For suggestions message ubre on discord" );
 
 			}
 
@@ -44,13 +44,13 @@ namespace GameOfLife
 			foreach( LogEntry message in ChatMessages ) 
 			{ 
 			
-				ChatBox.AddChatLog( To.Single( client ), message.User, message.Message, message.Button );
+				ChatPanel.AddChatLog( To.Single( client ), message.User, message.Message, message.Button );
 
 			}
 
 
 
-			ChatBox.SendChatLog( $"{client.Name} has joined." );
+			ChatPanel.SendChatLog( $"{client.Name} has joined." );
 
 			PlayMusic( To.Single( client ) );
 
@@ -59,7 +59,7 @@ namespace GameOfLife
 		public override void ClientDisconnect( Client client, NetworkDisconnectionReason reason )
 		{
 
-			ChatBox.SendChatLog( $"{client.Name} has left." );
+			ChatPanel.SendChatLog( $"{client.Name} has left." );
 
 		}
 

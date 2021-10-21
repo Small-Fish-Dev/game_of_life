@@ -21,7 +21,7 @@ namespace GameOfLife
 
 			ClearGrid( true );
 
-			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[CLEAR]" );
+			ChatPanel.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[CLEAR]" );
 
 		}
 		
@@ -31,7 +31,7 @@ namespace GameOfLife
 
 			Next( true, ConsoleSystem.Caller );
 
-			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[NEXT]" );
+			ChatPanel.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[NEXT]" );
 
 		}
 
@@ -41,7 +41,7 @@ namespace GameOfLife
 
 			Play( isPlaying, true );
 
-			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, isPlaying ? "[PLAY]" : "[STOP]" );
+			ChatPanel.SendChatLog( "pressed", ConsoleSystem.Caller.Name, isPlaying ? "[PLAY]" : "[STOP]" );
 
 		}
 
@@ -51,7 +51,7 @@ namespace GameOfLife
 
 			Loop( isLooping, true );
 
-			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, isLooping ? "[LOOP]" : "[WALL]" );
+			ChatPanel.SendChatLog( "pressed", ConsoleSystem.Caller.Name, isLooping ? "[LOOP]" : "[WALL]" );
 
 		}
 
@@ -61,7 +61,7 @@ namespace GameOfLife
 
 			SetSpeed( speed, true );
 
-			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[SPEED]" );
+			ChatPanel.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[SPEED]" );
 
 		}
 
@@ -71,7 +71,7 @@ namespace GameOfLife
 
 			SetSize( size, true );
 
-			ChatBox.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[SIZE]" );
+			ChatPanel.SendChatLog( "pressed", ConsoleSystem.Caller.Name, "[SIZE]" );
 
 		}
 
