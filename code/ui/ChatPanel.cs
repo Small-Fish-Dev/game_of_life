@@ -75,8 +75,6 @@ namespace GameOfLife
 		public ChatPanel()
 		{
 
-			StyleSheet.Load( "ui/HUD.scss" );
-
 			Canvas = Add.Panel( "chat_canvas" );
 			Canvas.PreferScrollToBottom = true;
 

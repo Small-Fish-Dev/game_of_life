@@ -24,7 +24,6 @@ namespace GameOfLife
 
 			} );
 
-
 			// [NEXT] button
 			var next = Add.Button( "", "buttons" );
 			next.Add.Label( "⇥", "next" );

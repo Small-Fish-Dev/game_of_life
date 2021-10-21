@@ -206,14 +206,11 @@ RootPanel {
             cursor: default;
         }
     }
-}
 
-info { //FINISH INFO BOX
-    z-index: 0;
-    width: 200px;
-    height: 100px;
-    position: absolute;
-    background-color: red;
+    .info {
+        z-index: 10;
+        position: absolute;
+    }
 }
 
 ChatPanel {
