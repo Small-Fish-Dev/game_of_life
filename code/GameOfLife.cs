@@ -13,6 +13,7 @@ namespace GameOfLife
 
 		public static HUD GameHUD;
 		public static List<LogEntry> ChatMessages = new();
+		public static Dictionary<string, Pattern> Patterns = new();
 
 		public GameOfLife()
 		{
@@ -20,7 +21,7 @@ namespace GameOfLife
 			if ( IsServer )
 			{
 
-				GameHUD = new HUD();
+				LoadHUD();
 
 				ChatPanel.SendChatLog( "Server has been started." );
 				ChatPanel.SendChatLog( "Hello, this is my first serious attempt at making a gamemode, it is still very much in development but I thought that now was a good time to get people to test it. For suggestions message ubre on discord" );
@@ -29,17 +30,31 @@ namespace GameOfLife
 
 		}
 
+		[ServerCmd( "gol_load_hud", Help = "Load the HUD" )]
+		public static void LoadHUD()
+		{
+
+			if( Host.IsServer )
+			{
+
+				if ( GameHUD != null )
+				{
+
+					GameHUD.Delete();
+
+				}
+
+				GameHUD = new HUD();
+
+			}
+
+		}
+
 		public override void ClientJoined( Client client )
 		{
 
-			ushort[] package = CellGrid.GeneratePackage();
+			CellGrid.BroadcastGrid( To.Single( client ), Pattern.ToString( CellGrid.Cells ) );
 
-			if ( package.Length > 0 )
-			{
-
-				CellGrid.BroadcastGrid( To.Single( client ), CellGrid.GeneratePackage() );
-
-			}
 
 			foreach( LogEntry message in ChatMessages ) 
 			{ 

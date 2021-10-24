@@ -87,7 +87,7 @@ namespace GameOfLife
 
 			RootPanel.StyleSheet.Load( "ui/HUD.scss" );
 
-			RootPanel.AddChild<PreviewPanel>( "info" );
+			//RootPanel.AddChild<PreviewPanel>( "info" ); //TODO: Info panel
 
 			RootPanel.AddChild<SidebarPanel>( "sidebar" );
 			RootPanel.AddChild<ToolsPanel>( "tools" );

@@ -134,16 +134,20 @@ namespace GameOfLife
 
 
 		[ClientRpc]
-		public static void BroadcastGrid( ushort[] grid )
+		public static void BroadcastGrid( string grid )
 		{
 
-			foreach ( ushort cell in grid )
+			bool[,] cells = Pattern.FromString( grid, GridSize, GridSize );
+
+			for ( int y = 0; y < cells.GetLength( 1 ); y++ )
 			{
 
-				int posX = cell % CellGrid.GridSize;
-				int posY = (int)MathX.Floor( cell / CellGrid.GridSize );
+				for ( int x = 0; x < cells.GetLength( 0 ); x++ )
+				{
 
-				UpdateCell( posX, posY, true );
+					UpdateCell( x, y, cells[x, y], false );
+
+				}
 
 			}
 

@@ -31,7 +31,12 @@ namespace GameOfLife
 				for ( int y = 0; y < CellGrid.GridSize; y++ )
 				{
 
-					Render.UI.Box( new Rect( Box.Left + x * cellWidth + cellGap * ScaleToScreen / 2 + border / 2, Box.Top + y * cellHeight + cellGap * ScaleToScreen / 2 + border / 2, cellWidth - cellGap * ScaleToScreen, cellHeight - cellGap * ScaleToScreen ),  CellGrid.Cells[x, y] ? Color.White : Color.Black );
+					if ( CellGrid.Cells[x, y] ) //TODO Add FPS saving mode, only display alive cells
+					{
+
+						Render.UI.Box( new Rect( Box.Left + x * cellWidth + cellGap * ScaleToScreen / 2 + border / 2, Box.Top + y * cellHeight + cellGap * ScaleToScreen / 2 + border / 2, cellWidth - cellGap * ScaleToScreen, cellHeight - cellGap * ScaleToScreen ), Color.White );
+
+					}
 
 				}
 
