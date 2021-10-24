@@ -52,6 +52,7 @@ namespace GameOfLife
 
 						dataString = $"{dataString}{(dataString == "" ? "" : ".")}{currentCount}";
 						currentCount = 0;
+						currentCheck = !currentCheck;
 
 					}
 
@@ -87,6 +88,13 @@ namespace GameOfLife
 							currentNum++;
 							currentCount = int.Parse( explodedString[currentNum] );
 							currentCheck = !currentCheck;
+
+						}
+						else
+						{
+
+							currentCheck = !currentCheck;
+							currentCount = -1;
 
 						}
 
