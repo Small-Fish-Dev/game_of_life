@@ -134,6 +134,7 @@ namespace GameOfLife
 		{
 
 			GameOfLife.Patterns.Clear();
+			CellGrid.ClearGrid();
 
 			List<Pattern> loaded = FileSystem.Data.ReadJson<List<Pattern>>( "gol_patterns.json" );
 
@@ -150,8 +151,6 @@ namespace GameOfLife
 				}
 
 			}
-
-			CellGrid.ClearGrid();
 			CellGrid.BroadcastGrid( loaded[0].GridData );
 
 		}
