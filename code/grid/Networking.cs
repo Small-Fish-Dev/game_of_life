@@ -137,15 +137,20 @@ namespace GameOfLife
 		public static void BroadcastGrid( string grid )
 		{
 
-			bool[,] cells = Pattern.FromString( grid, GridSize, GridSize );
-
-			for ( int y = 0; y < cells.GetLength( 1 ); y++ )
+			if( ActiveCells.Count > 0 )
 			{
 
-				for ( int x = 0; x < cells.GetLength( 0 ); x++ )
+				bool[,] cells = Pattern.FromString( grid, GridSize, GridSize );
+
+				for ( int y = 0; y < cells.GetLength( 1 ); y++ )
 				{
 
-					UpdateCell( x, y, cells[x, y], false );
+					for ( int x = 0; x < cells.GetLength( 0 ); x++ )
+					{
+
+						UpdateCell( x, y, cells[x, y], false );
+
+					}
 
 				}
 

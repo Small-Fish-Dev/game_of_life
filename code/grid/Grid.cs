@@ -97,12 +97,12 @@ namespace GameOfLife
 
 			List<Vector2> oldGrid = new( ActiveCells );
 
-			oldGrid.ForEach( delegate ( Vector2 pos )
+			foreach( Vector2 pos in oldGrid )
 			{
 
 				UpdateCell( (int)pos.x, (int)pos.y, false );
 
-			} );
+			}
 
 			if( networked )
 			{
@@ -130,7 +130,7 @@ namespace GameOfLife
 			Dictionary<Vector2, bool> newGeneration = new();
 			Dictionary<Vector2, int> neighbourCount = new();
 
-			ActiveCells.ForEach( delegate ( Vector2 pos )
+			foreach ( Vector2 pos in ActiveCells )
 			{
 
 				for ( int x = -1; x <= 1; x++ )
@@ -186,7 +186,7 @@ namespace GameOfLife
 
 				}
 
-			} );
+			}
 
 			foreach ( KeyValuePair<Vector2, int> curCell in neighbourCount )
 			{
