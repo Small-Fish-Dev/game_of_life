@@ -10,10 +10,10 @@ namespace GameOfLife
 	public static partial class CellGrid
 	{
 
-		public static int GridSize { get; set; } = 50;
-		public static bool Playing { get; set; } = false;
-		public static bool Looping { get; set; } = true;
-		public static int Speed { get; set; } = 2; // Relative to the ValidSpeeds list
+		[Net] public static int GridSize { get; set; } = 50;
+		[Net] public static bool Playing { get; set; } = false;
+		[Net] public static bool Looping { get; set; } = true;
+		[Net] public static int Speed { get; set; } = 2; // Relative to the ValidSpeeds list
 		public static Panel LoopCross { get; set; }
 		public static Label PlayLabel { get; set; }
 		public static Label SpeedLabel { get; set; }
@@ -232,7 +232,7 @@ namespace GameOfLife
 					foreach ( Client client in Client.All )
 					{
 
-						if( client != caller ) // TODO: Does this even work?
+						if( client != caller ) // TODO: Does this even work? Test with fakelag
 						{
 
 							BroadcastNext( To.Single( client ) ); // Send to everyone except the caller

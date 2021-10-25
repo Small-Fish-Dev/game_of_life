@@ -151,6 +151,7 @@ namespace GameOfLife
 
 			}
 
+			CellGrid.ClearGrid();
 			CellGrid.BroadcastGrid( loaded[0].GridData );
 
 		}

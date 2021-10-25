@@ -137,7 +137,7 @@ namespace GameOfLife
 		public static void BroadcastGrid( string grid )
 		{
 
-			if( ActiveCells.Count > 0 )
+			if( grid.Length > 0 )
 			{
 
 				bool[,] cells = Pattern.FromString( grid, GridSize, GridSize );
