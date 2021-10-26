@@ -45,6 +45,7 @@ namespace GameOfLife
 		}
 
 		bool turbo = false;
+		float nextTick = 0f;
 		bool? setState = null;
 
 		public override void OnButtonEvent( ButtonEvent e )
@@ -85,24 +86,33 @@ namespace GameOfLife
 			if ( turbo )
 			{
 
-				int x = (int)MathX.Floor( MousePosition.x / Box.Rect.width * CellGrid.GridSize );
-				int y = (int)MathX.Floor( MousePosition.y / Box.Rect.height * CellGrid.GridSize );
+				if( Time.Now >= nextTick )
 
-				if ( x >= 0 && x < CellGrid.GridSize && y >= 0 && y < CellGrid.GridSize )
 				{
 
-					if ( CellGrid.Cells[x, y] == setState ) return;
+					int x = (int)MathX.Floor( MousePosition.x / Box.Rect.width * CellGrid.GridSize );
+					int y = (int)MathX.Floor( MousePosition.y / Box.Rect.height * CellGrid.GridSize );
 
-					CellGrid.UpdateCell( x, y, !CellGrid.Cells[x, y], true );
-					setState = CellGrid.Cells[x, y];
+					if ( x >= 0 && x < CellGrid.GridSize && y >= 0 && y < CellGrid.GridSize )
+					{
 
-					PlaySound( "click_cell" );
+						if ( CellGrid.Cells[x, y] == setState ) return;
+
+						CellGrid.UpdateCell( x, y, !CellGrid.Cells[x, y], true );
+						setState = CellGrid.Cells[x, y];
+
+						PlaySound( "click_cell" );
+
+						nextTick = Time.Now + 1/30f; // Server won't accept more than 30 packets each second, temporary fix
+
+					}
+
 
 				}
 
 			}
 
-			SetClass( "block", CellGrid.Playing);
+			SetClass( "block", CellGrid.Playing); // Bit lazy I know, might fix later
 
 		}
 
