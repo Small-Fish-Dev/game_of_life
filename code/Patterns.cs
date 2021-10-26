@@ -152,7 +152,7 @@ namespace GameOfLife
 
 			List<Pattern> grid = new List<Pattern>();
 			grid.Add( new Pattern( "Pattern1", CellGrid.GridSize, CellGrid.GridSize, Pattern.ToString( CellGrid.Cells ) ) );
-			grid.Add( new Pattern( "Pattern3", CellGrid.GridSize, CellGrid.GridSize, Pattern.ToString( Pattern.Cut( CellGrid.Cells, new Vector2(0, 0), new Vector2(5, 5) ) ) ) );
+			grid.Add( new Pattern( "Pattern3", 3, 3, Pattern.ToString( Pattern.Cut( CellGrid.Cells, new Vector2(0, 0), new Vector2(3, 3) ) ) ) );
 
 			FileSystem.Data.WriteJson( "gol_patterns.json", grid );
 
@@ -167,7 +167,7 @@ namespace GameOfLife
 
 			List<Pattern> loaded = FileSystem.Data.ReadJson<List<Pattern>>( "gol_patterns.json" );
 
-			bool[,] cells = Pattern.FromString( loaded[0].GridData, loaded[0].PatternWidth, loaded[0].PatternHeight );
+			bool[,] cells = Pattern.FromString( loaded[1].GridData, loaded[1].PatternWidth, loaded[1].PatternHeight );
 
 			for ( int y = 0; y < cells.GetLength( 1 ); y++ )
 			{
@@ -180,7 +180,8 @@ namespace GameOfLife
 				}
 
 			}
-			CellGrid.BroadcastGrid( loaded[0].GridData );
+
+			CellGrid.BroadcastGrid( Pattern.ToString( CellGrid.Cells ) );
 
 		}
 
