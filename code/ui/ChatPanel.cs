@@ -147,22 +147,27 @@ namespace GameOfLife
 
 				var lastMessage = GameOfLife.ChatMessages[GameOfLife.ChatMessages.Count - 1];
 
-				if( message == lastMessage.Message )
+				if ( name == lastMessage.User )
 				{
 
-					if( button == lastMessage.Button )
+					if ( message == lastMessage.Message )
 					{
 
-						lastMessage.Multiplier++;
-						lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+						if ( button == lastMessage.Button )
+						{
 
-						return;
+							lastMessage.Multiplier++;
+							lastMessage.Entry.Multiplier.Text = $" x{lastMessage.Multiplier}";
+
+							return;
+
+						}
+
+						if ( ToggleButtonText( lastMessage, button, "[PLAY]", "[STOP]" ) ) { return; }
+
+						if ( ToggleButtonText( lastMessage, button, "[LOOP]", "[WALL]" ) ) { return; }
 
 					}
-
-					if( ToggleButtonText( lastMessage, button, "[PLAY]", "[STOP]" ) ) { return; }
-
-					if( ToggleButtonText( lastMessage, button, "[LOOP]", "[WALL]" ) ) { return; }
 
 				}
 
