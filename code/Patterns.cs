@@ -1,9 +1,11 @@
 ﻿using Sandbox;
-using Sandbox.UI;
-using Sandbox.UI.Construct;
 using System.Collections.Generic;
 using System;
-using System.Runtime;
+using System.IO;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 
 namespace GameOfLife
 {
@@ -23,6 +25,33 @@ namespace GameOfLife
 			PatternWidth = patternWidth;
 			PatternHeight = patternHeight;
 			GridData = gridData;
+
+		}
+
+		public static bool[,] Cut( bool[,] grid, Vector2 topLeft, Vector2 bottomRight )
+		{
+			int sizeX = (int)bottomRight.x - (int)topLeft.x;
+			int sizeY = (int)bottomRight.y - (int)topLeft.y;
+
+			if ( sizeX <= 0 || sizeY <= 0 ) return new bool[0, 0];
+			if ( topLeft.x < 0 || topLeft.y < 0 ) return new bool[0, 0];
+			if ( bottomRight.x > grid.GetLength( 1 ) || bottomRight.y > grid.GetLength( 0 ) ) return new bool[0, 0];
+
+			bool[,] resultGrid = new bool[sizeX, sizeY];
+
+			for ( int y = (int)topLeft.y; y < (int)bottomRight.y; y++)
+			{
+
+				for ( int x = (int)topLeft.x; x < (int)bottomRight.x; x++ )
+				{
+
+					resultGrid[x - (int)topLeft.x, y - (int)topLeft.y] = grid[x, y];
+
+				}
+
+			}
+
+			return resultGrid;
 
 		}
 
@@ -123,7 +152,7 @@ namespace GameOfLife
 
 			List<Pattern> grid = new List<Pattern>();
 			grid.Add( new Pattern( "Pattern1", CellGrid.GridSize, CellGrid.GridSize, Pattern.ToString( CellGrid.Cells ) ) );
-			grid.Add( new Pattern( "Pattern3", CellGrid.GridSize, CellGrid.GridSize, Pattern.ToString( CellGrid.Cells ) ) );
+			grid.Add( new Pattern( "Pattern3", CellGrid.GridSize, CellGrid.GridSize, Pattern.ToString( Pattern.Cut( CellGrid.Cells, new Vector2(0, 0), new Vector2(5, 5) ) ) ) );
 
 			FileSystem.Data.WriteJson( "gol_patterns.json", grid );
 
