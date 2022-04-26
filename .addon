@@ -2,7 +2,7 @@
   "Title": "Game Of Life",
   "Type": "game",
   "Org": "fish",
-  "Ident": "game_of_life",
+  "Ident": "conway",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
