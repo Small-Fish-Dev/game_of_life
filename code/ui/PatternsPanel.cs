@@ -29,7 +29,7 @@ namespace GameOfLife
 		public PatternsPanel()
 		{
 
-			Add.Panel( "patternstitle" ).Add.Label( "Patterns" );
+			Add.Panel( "patternstitle" ).Add.Label( "Patterns (WIP)" );
 
 			var patternsContainer = Add.Panel( "patterncontainer" );
 
