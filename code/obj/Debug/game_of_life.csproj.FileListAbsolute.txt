@@ -1,0 +1,5 @@
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\game_of_life.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\game_of_life.GeneratedMSBuildEditorConfig.editorconfig
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\game_of_life.AssemblyInfoInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\game_of_life.AssemblyInfo.cs
+C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\game_of_life\code\obj\Debug\game_of_life.csproj.CoreCompileInputs.cache

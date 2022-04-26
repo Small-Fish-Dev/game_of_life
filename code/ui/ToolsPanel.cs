@@ -91,6 +91,19 @@ namespace GameOfLife
 
 			} );
 
+			// [GRID] button
+			var grid = Add.Button( "", "buttons" );
+			grid.Add.Label( "⩩", "loop" );
+			CellGrid.GridCross = grid.Add.Label( "✕", "cross" );
+			CellGrid.GridCross.Style.Opacity = CellGrid.ShowGrid ? 0 : 1;
+			grid.AddEventListener( "onclick", () =>
+			{
+
+				CellGrid.ToggleGrid( !CellGrid.ShowGrid, true );
+				PlaySound( "click_button" );
+
+			} );
+
 		}
 
 	}

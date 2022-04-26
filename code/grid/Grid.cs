@@ -13,9 +13,11 @@ namespace GameOfLife
 		[Net] public static int GridSize { get; set; } = 50;
 		[Net] public static bool Playing { get; set; } = false;
 		[Net] public static bool Looping { get; set; } = true;
+		[Net] public static bool ShowGrid { get; set; } = true;
 		[Net] public static int Speed { get; set; } = 2; // Relative to the ValidSpeeds list
 		public static Panel LoopCross { get; set; }
-		public static Label PlayLabel { get; set; }
+        public static Panel GridCross { get; set; }
+        public static Label PlayLabel { get; set; }
 		public static Label SpeedLabel { get; set; }
 		public static bool[,] Cells { get; set; } = new bool[GridSize, GridSize];
 		public static List<Vector2> ActiveCells = new();
@@ -310,6 +312,38 @@ namespace GameOfLife
 				{
 
 					NetworkLoop( isLooping );
+
+				}
+
+			}
+
+		}
+
+		public static void ToggleGrid( bool isGridToggled, bool networked = false )
+		{
+
+			ShowGrid = isGridToggled;
+
+			if ( Host.IsClient )
+			{
+
+				GridCross.Style.Opacity = ShowGrid ? 0 : 1;
+
+			}
+
+			if ( networked )
+			{
+
+				if ( Host.IsServer )
+				{
+
+					BroadcastShowGrid( isGridToggled );
+
+				}
+				else
+				{
+
+					NetworkShowGrid( isGridToggled );
 
 				}
 

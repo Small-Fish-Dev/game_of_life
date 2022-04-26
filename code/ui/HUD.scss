@@ -182,6 +182,14 @@ RootPanel {
                 padding-right: 5px;
             }
 
+            .nogrid {
+                font-size: 40px;
+                font-family: Arial;
+                color: white;
+                padding-top: 9px;
+                padding-right: 4px;
+            }
+
             &:hover {
                 background-color: #301B3F;
             }
@@ -199,8 +207,9 @@ RootPanel {
         aspect-ratio: 1;
         height: 90%;
         align-self: center;
+        background-image: url(ui/empty.png);
+        background-size: 5px;
         background-color: #202224;
-        border: 3px solid white;
 
         &.block {
             cursor: default;

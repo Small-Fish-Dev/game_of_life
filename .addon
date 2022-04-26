@@ -1,18 +1,23 @@
 {
-		"name": "game_of_life",
-		"sharedassets": "*.*",
-		
-		"depends": 
-		[
-			"base"
-		],
-
-		"gamemodes":
-		[
-			{
-				"name": "game_of_life",
-				"title": "Game of Life",
-				"description": "Most famous cellular automata made by John Conway in 1970"
-			}
-		]
+  "Title": "Game Of Life",
+  "Type": "game",
+  "Org": "fish",
+  "Ident": "game_of_life",
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "ResourcePaths": [
+    "/fonts/*",
+    "/ui/*"
+  ],
+  "HasCode": true,
+  "CodePath": "code",
+  "RootNamespace": "GameOfLife",
+  "Metadata": {
+    "MapList": [
+      "facepunch.construct"
+    ],
+    "MinPlayers": 1,
+    "MapSelect": 4
+  }
 }

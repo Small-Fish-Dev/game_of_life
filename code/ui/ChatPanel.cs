@@ -167,6 +167,8 @@ namespace GameOfLife
 
 						if ( ToggleButtonText( lastMessage, button, "[LOOP]", "[WALL]" ) ) { return; }
 
+						if ( ToggleButtonText( lastMessage, button, "[SHOW]", "[HIDE]" ) ) { return; }
+
 					}
 
 				}

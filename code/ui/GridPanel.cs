@@ -18,12 +18,22 @@ namespace GameOfLife
 		public override void DrawBackground( ref RenderState state )
 		{
 
-			var border = 6; // Border is annoying!
+			var border = 0; // Border is annoying!
 			var width = Box.Rect.width - border;
 			var height = Box.Rect.height - border;
 			var cellWidth = width / CellGrid.GridSize;
 			var cellHeight = width / CellGrid.GridSize;
-			var cellGap = Math.Max( 2 * ( 50 / CellGrid.GridSize ), 1 );
+			var cellGap = Math.Max( 2 * ( 50 / CellGrid.GridSize ), 2 );
+
+			Style.BackgroundSizeX = cellWidth * ScaleFromScreen;
+			Style.BackgroundSizeY = cellHeight * ScaleFromScreen;
+
+			if ( !CellGrid.ShowGrid )
+			{
+
+				Render.Draw2D.Box( new Rect( Box.Left, Box.Top, Box.Rect.width, Box.Rect.height ), Color.Black );
+
+			}
 
 			for ( int x = 0; x < CellGrid.GridSize; x++ )
 			{
@@ -31,16 +41,17 @@ namespace GameOfLife
 				for ( int y = 0; y < CellGrid.GridSize; y++ )
 				{
 
-					if ( CellGrid.Cells[x, y] ) //TODO Add FPS saving mode, only display alive cells
+					if ( CellGrid.Cells[x, y] )
 					{
 
-						Render.UI.Box( new Rect( Box.Left + x * cellWidth + cellGap * ScaleToScreen / 2 + border / 2, Box.Top + y * cellHeight + cellGap * ScaleToScreen / 2 + border / 2, cellWidth - cellGap * ScaleToScreen, cellHeight - cellGap * ScaleToScreen ), Color.White );
-
+						Render.Draw2D.Box( new Rect( Box.Left + x * cellWidth + cellGap * ScaleToScreen / 2 + border / 2, Box.Top + y * cellHeight + cellGap * ScaleToScreen / 2 + border / 2, cellWidth - cellGap * ScaleToScreen, cellHeight - cellGap * ScaleToScreen ), Color.White );
+						
 					}
 
 				}
 
 			}
+
 
 		}
 

@@ -75,6 +75,16 @@ namespace GameOfLife
 
 		}
 
+		[ServerCmd]
+		public static void NetworkShowGrid( bool isGridToggled )
+		{
+
+			ToggleGrid( isGridToggled, true );
+
+			ChatPanel.SendChatLog( "pressed", ConsoleSystem.Caller.Name, isGridToggled ? "[SHOW]" : "[HIDE]" );
+
+		}
+
 
 		[ClientRpc]
 		public static void BroadcastUpdate( int x, int y, bool state )
@@ -155,6 +165,14 @@ namespace GameOfLife
 				}
 
 			}
+
+		}
+
+		[ClientRpc]
+		public static void BroadcastShowGrid( bool isGridToggled )
+		{
+
+			ToggleGrid( isGridToggled );
 
 		}
 

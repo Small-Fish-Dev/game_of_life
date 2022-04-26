@@ -59,7 +59,7 @@ namespace GameOfLife
 					float boxLeft = rect.left + x * boxWidth;
 					float boxTop = rect.top + y * boxHeight;
 
-					Render.UI.Box( new Rect( boxLeft, boxTop, boxWidth, boxHeight ), gridDisplay[y, x] ? Color.White : Color.Black );
+					Render.Draw2D.Box( new Rect( boxLeft, boxTop, boxWidth, boxHeight ), gridDisplay[y, x] ? Color.White : Color.Black );
 
 				}
 
