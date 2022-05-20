@@ -30,7 +30,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd( "gol_load_hud", Help = "Load the HUD" )]
+		[ConCmd.Server( "gol_load_hud", Help = "Load the HUD" )]
 		public static void LoadHUD()
 		{
 

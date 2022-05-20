@@ -146,7 +146,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd( "gol_save")]
+		[ConCmd.Server( "gol_save")]
 		public static void SaveJson()
 		{
 
@@ -158,7 +158,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd( "gol_load" )]
+		[ConCmd.Server( "gol_load" )]
 		public static void LoadJson()
 		{
 

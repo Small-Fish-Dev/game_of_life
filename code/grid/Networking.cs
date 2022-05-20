@@ -7,7 +7,7 @@ namespace GameOfLife
 	public static partial class CellGrid
 	{
 
-		[ServerCmd]
+		[ConCmd.Server]
 		public static void NetworkUpdate( int x, int y, bool state )
 		{
 
@@ -15,7 +15,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd]
+		[ConCmd.Server]
 		public static void NetworkClear()
 		{
 
@@ -25,7 +25,7 @@ namespace GameOfLife
 
 		}
 		
-		[ServerCmd]
+		[ConCmd.Server]
 		public static void NetworkNext()
 		{
 
@@ -35,7 +35,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd]
+		[ConCmd.Server]
 		public static void NetworkPlay( bool isPlaying)
 		{
 
@@ -45,7 +45,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd]
+		[ConCmd.Server]
 		public static void NetworkLoop( bool isLooping )
 		{
 
@@ -55,7 +55,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd]
+		[ConCmd.Server]
 		public static void NetworkSpeed( int speed )
 		{
 
@@ -65,7 +65,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd]
+		[ConCmd.Server]
 		public static void NetworkSize( int size )
 		{
 
@@ -75,7 +75,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd]
+		[ConCmd.Server]
 		public static void NetworkShowGrid( bool isGridToggled )
 		{
 

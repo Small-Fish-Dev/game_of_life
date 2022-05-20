@@ -213,7 +213,7 @@ namespace GameOfLife
 
 		}
 
-		[ServerCmd( "say" )]
+		[ConCmd.Server( "say" )]
 		public static void Say( string message )
 		{
 

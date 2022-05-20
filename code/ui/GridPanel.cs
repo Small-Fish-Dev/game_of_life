@@ -22,7 +22,7 @@ namespace GameOfLife
 			var width = Box.Rect.width - border;
 			var height = Box.Rect.height - border;
 			var cellWidth = width / CellGrid.GridSize;
-			var cellHeight = width / CellGrid.GridSize;
+			var cellHeight = height / CellGrid.GridSize;
 			var cellGap = Math.Max( 2 * ( 50 / CellGrid.GridSize ), 2 );
 
 			Style.BackgroundSizeX = cellWidth * ScaleFromScreen;
