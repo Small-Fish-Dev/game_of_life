@@ -4,7 +4,7 @@
     "net6.0": {
       "base/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": "Unsupported,Version=v0.0",
         "compile": {
           "bin/placeholder/base.dll": {}
         },
@@ -33,9 +33,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\game_of_life\\code\\game_of_life.csproj",
-      "projectName": "game_of_life",
-      "projectPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\game_of_life\\code\\game_of_life.csproj",
+      "projectUniqueName": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\game_of_life\\code\\conway.csproj",
+      "projectName": "conway",
+      "projectPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\game_of_life\\code\\conway.csproj",
       "packagesPath": "C:\\Users\\uberm\\.nuget\\packages\\",
       "outputPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\game_of_life\\code\\obj\\",
       "projectStyle": "PackageReference",
@@ -78,17 +78,24 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project base is not compatible with net6.0 (.NETCoreApp,Version=v6.0). Project base supports: net7.0 (.NETCoreApp,Version=v7.0)",
+      "libraryId": "base",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

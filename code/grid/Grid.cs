@@ -10,11 +10,11 @@ namespace GameOfLife
 	public static partial class CellGrid
 	{
 
-		[Net] public static int GridSize { get; set; } = 50;
-		[Net] public static bool Playing { get; set; } = false;
-		[Net] public static bool Looping { get; set; } = true;
-		[Net] public static bool ShowGrid { get; set; } = true;
-		[Net] public static int Speed { get; set; } = 2; // Relative to the ValidSpeeds list
+		public static int GridSize { get; set; } = 50;
+		public static bool Playing { get; set; } = false;
+		public static bool Looping { get; set; } = true;
+		public static bool ShowGrid { get; set; } = true;
+		public static int Speed { get; set; } = 2; // Relative to the ValidSpeeds list
 		public static Panel LoopCross { get; set; }
         public static Panel GridCross { get; set; }
         public static Label PlayLabel { get; set; }

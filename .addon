@@ -3,6 +3,7 @@
   "Type": "game",
   "Org": "fish",
   "Ident": "conway",
+  "Tags": null,
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -18,6 +19,11 @@
       "facepunch.construct"
     ],
     "MinPlayers": 1,
-    "MapSelect": 4
+    "MapSelect": "Empty",
+    "PerMapRanking": false,
+    "LeaderboardType": "None",
+    "RankType": "None",
+    "GameNetworkType": "Multiplayer",
+    "MaxPlayers": 32
   }
 }

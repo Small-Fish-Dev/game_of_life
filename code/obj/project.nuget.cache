@@ -1,8 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "0rWccyVMJIo/rPj4MvjPGiqQX45Mp+D5qIeEjS8E11vRVi52ZmzHfcKGk5yiOB8YovjDGMVePUvI5PGPAzrROQ==",
-  "success": true,
-  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\game_of_life\\code\\game_of_life.csproj",
+  "dgSpecHash": "G3vcCns8JvubZghp0x00LdkTOFQ9qS/SUsTy3MM0tIfEzDlBEYCUr5zbV2gfWeaSDFUK6pze6falXnzR8yBzIA==",
+  "success": false,
+  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\game_of_life\\code\\conway.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project base is not compatible with net6.0 (.NETCoreApp,Version=v6.0). Project base supports: net7.0 (.NETCoreApp,Version=v7.0)",
+      "libraryId": "base",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }
