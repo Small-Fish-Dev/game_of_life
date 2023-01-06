@@ -47,8 +47,8 @@ namespace GameOfLife
 			};
 
 			Rect rect = this.Box.Rect;
-			float boxWidth = rect.width / 3;
-			float boxHeight = rect.height / 3;
+			float boxWidth = rect.Width / 3;
+			float boxHeight = rect.Height / 3;
 
 			for ( int x = 0; x < 3; x++ )
 			{
@@ -56,10 +56,10 @@ namespace GameOfLife
 				for ( int y = 0; y < 3; y++ )
 				{
 
-					float boxLeft = rect.left + x * boxWidth;
-					float boxTop = rect.top + y * boxHeight;
+					float boxLeft = rect.Left + x * boxWidth;
+					float boxTop = rect.Top + y * boxHeight;
 
-					Render.Draw2D.Box( new Rect( boxLeft, boxTop, boxWidth, boxHeight ), gridDisplay[y, x] ? Color.White : Color.Black );
+					Graphics.DrawQuad( new Rect( boxLeft, boxTop, boxWidth, boxHeight ), Material.UI.Basic, gridDisplay[y, x] ? Color.White : Color.Black );
 
 				}
 
@@ -83,7 +83,7 @@ namespace GameOfLife
 		public HUD()
 		{
 
-			if ( !IsClient ) return;
+			if ( !Game.IsClient ) return;
 
 			RootPanel.StyleSheet.Load( "ui/HUD.scss" );
 

@@ -3,7 +3,7 @@
   "Type": "game",
   "Org": "fish",
   "Ident": "conway",
-  "Tags": null,
+  "Tags": "",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -13,7 +13,6 @@
   ],
   "HasCode": true,
   "CodePath": "code",
-  "RootNamespace": "GameOfLife",
   "Metadata": {
     "MapList": [
       "facepunch.construct"
@@ -24,6 +23,11 @@
     "LeaderboardType": "None",
     "RankType": "None",
     "GameNetworkType": "Multiplayer",
-    "MaxPlayers": 32
+    "MaxPlayers": 32,
+    "DefaultLeaderboards": null,
+    "Summary": "Conway\u0027s Game of Life that supports multiplayer!",
+    "Description": "The cellular automaton made by mathematician John Conway in 1970.\nZero-player game? How about multiplayer!? Play with your friends!\n\nPing @ubre on Discord for suggestions and bug reports, gamemode is NOT finished.\n\n\uD835\uDE3E\uD835\uDE43\uD835\uDE3C\uD835\uDE49\uD835\uDE42\uD835\uDE40\uD835\uDE47\uD835\uDE4A\uD835\uDE42:\u200B\n\n\uD835\uDFF8\uD835\uDFFC-\uD835\uDE70\uD835\uDE99\uD835\uDE9B-\uD835\uDFF8\uD835\uDFF8:\n\u2022[NEW] Added new Hide Grid button;\n\u2022[FPS] Massively improved fps on huge grids;\n(It will only render active cells, the grid is now a dynamic background image)\n\n\uD835\uDFF7\uD835\uDFFD-\uD835\uDE7E\uD835\uDE8C\uD835\uDE9D-\uD835\uDFF8\uD835\uDFF7:\n\u2022[NEW] Added new Grid Size buttons;\n\u2022[NEW] Hold right click for turbo mode;\n\u2022[FIX] Stupid chat UI wonkyness;\n\u2022[FIX] Fixed pixel snapping;",
+    "Public": true,
+    "ReplaceTags": "conway grid cells"
   }
 }

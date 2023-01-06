@@ -19,8 +19,8 @@ namespace GameOfLife
 		{
 
 			var border = 0; // Border is annoying!
-			var width = Box.Rect.width - border;
-			var height = Box.Rect.height - border;
+			var width = Box.Rect.Width - border;
+			var height = Box.Rect.Height - border;
 			var cellWidth = width / CellGrid.GridSize;
 			var cellHeight = height / CellGrid.GridSize;
 			var cellGap = Math.Max( 2 * ( 50 / CellGrid.GridSize ), 2 );
@@ -28,10 +28,11 @@ namespace GameOfLife
 			Style.BackgroundSizeX = cellWidth * ScaleFromScreen;
 			Style.BackgroundSizeY = cellHeight * ScaleFromScreen;
 
+
 			if ( !CellGrid.ShowGrid )
 			{
 
-				Render.Draw2D.Box( new Rect( Box.Left, Box.Top, Box.Rect.width, Box.Rect.height ), Color.Black );
+				new Draw2D().Quad( new Rect( Box.Left, Box.Top, Box.Rect.Width, Box.Rect.Height ), Color.Black );
 
 			}
 
@@ -44,8 +45,9 @@ namespace GameOfLife
 					if ( CellGrid.Cells[x, y] )
 					{
 
-						Render.Draw2D.Box( new Rect( Box.Left + x * cellWidth + cellGap * ScaleToScreen / 2 + border / 2, Box.Top + y * cellHeight + cellGap * ScaleToScreen / 2 + border / 2, cellWidth - cellGap * ScaleToScreen, cellHeight - cellGap * ScaleToScreen ), Color.White );
-						
+						new Draw2D().Quad( new Rect( Box.Left + x * cellWidth + cellGap * ScaleToScreen / 2 + border / 2, Box.Top + y * cellHeight + cellGap * ScaleToScreen / 2 + border / 2, cellWidth - cellGap * ScaleToScreen, cellHeight - cellGap * ScaleToScreen ), Color.White );
+
+
 					}
 
 				}
@@ -67,8 +69,8 @@ namespace GameOfLife
 			if ( e.Button == "mouseleft" && e.Pressed == true )
 			{
 
-				int x = (int)MathX.Floor( MousePosition.x / Box.Rect.width * CellGrid.GridSize );
-				int y = (int)MathX.Floor( MousePosition.y / Box.Rect.height * CellGrid.GridSize );
+				int x = (int)MathX.Floor( MousePosition.x / Box.Rect.Width * CellGrid.GridSize );
+				int y = (int)MathX.Floor( MousePosition.y / Box.Rect.Height * CellGrid.GridSize );
 
 				if ( x >= 0 && x < CellGrid.GridSize && y >= 0 && y < CellGrid.GridSize )
 				{
@@ -101,8 +103,8 @@ namespace GameOfLife
 
 				{
 
-					int x = (int)MathX.Floor( MousePosition.x / Box.Rect.width * CellGrid.GridSize );
-					int y = (int)MathX.Floor( MousePosition.y / Box.Rect.height * CellGrid.GridSize );
+					int x = (int)MathX.Floor( MousePosition.x / Box.Rect.Width * CellGrid.GridSize );
+					int y = (int)MathX.Floor( MousePosition.y / Box.Rect.Height * CellGrid.GridSize );
 
 					if ( x >= 0 && x < CellGrid.GridSize && y >= 0 && y < CellGrid.GridSize )
 					{

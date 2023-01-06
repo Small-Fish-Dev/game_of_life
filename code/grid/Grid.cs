@@ -77,7 +77,7 @@ namespace GameOfLife
 			if ( networked )
 			{
 
-				if ( Host.IsServer )
+				if ( Game.IsServer )
 				{
 
 					BroadcastUpdate( x, y, state );
@@ -109,7 +109,7 @@ namespace GameOfLife
 			if( networked )
 			{
 
-				if ( Host.IsServer )
+				if ( Game.IsServer )
 				{
 
 					BroadcastClear();
@@ -126,7 +126,7 @@ namespace GameOfLife
 
 		}
 
-		public static void Next( bool networked = false, Client caller = null )
+		public static void Next( bool networked = false, IClient caller = null )
 		{
 
 			Dictionary<Vector2, bool> newGeneration = new();
@@ -228,10 +228,10 @@ namespace GameOfLife
 			if ( networked )
 			{
 
-				if ( Host.IsServer )
+				if ( Game.IsServer )
 				{
 
-					foreach ( Client client in Client.All )
+					foreach ( IClient client in Game.Clients )
 					{
 
 						if( client != caller ) // TODO: Does this even work? Test with fakelag
@@ -260,7 +260,7 @@ namespace GameOfLife
 
 			Playing = isPlaying;
 
-			if ( Host.IsClient )
+			if ( Game.IsClient )
 			{
 
 				PlayLabel.SetText( Playing ? "᱿" : "▸" );
@@ -270,7 +270,7 @@ namespace GameOfLife
 			if ( networked )
 			{
 
-				if ( Host.IsServer )
+				if ( Game.IsServer )
 				{
 
 					BroadcastPlay( isPlaying );
@@ -292,7 +292,7 @@ namespace GameOfLife
 
 			Looping = isLooping;
 
-			if( Host.IsClient )
+			if( Game.IsClient )
 			{
 
 				LoopCross.Style.Opacity = Looping ? 0 : 1;
@@ -302,7 +302,7 @@ namespace GameOfLife
 			if ( networked )
 			{
 
-				if ( Host.IsServer )
+				if ( Game.IsServer )
 				{
 
 					BroadcastLoop( isLooping );
@@ -324,7 +324,7 @@ namespace GameOfLife
 
 			ShowGrid = isGridToggled;
 
-			if ( Host.IsClient )
+			if ( Game.IsClient )
 			{
 
 				GridCross.Style.Opacity = ShowGrid ? 0 : 1;
@@ -334,7 +334,7 @@ namespace GameOfLife
 			if ( networked )
 			{
 
-				if ( Host.IsServer )
+				if ( Game.IsServer )
 				{
 
 					BroadcastShowGrid( isGridToggled );
@@ -356,7 +356,7 @@ namespace GameOfLife
 
 			Speed = speed;
 
-			if ( Host.IsClient )
+			if ( Game.IsClient )
 			{
 
 				Log.Info( speed );
@@ -368,7 +368,7 @@ namespace GameOfLife
 			if ( networked )
 			{
 
-				if ( Host.IsServer )
+				if ( Game.IsServer )
 				{
 
 					BroadcastSpeed( speed );
@@ -411,7 +411,7 @@ namespace GameOfLife
 			if ( networked )
 			{
 
-				if ( Host.IsServer )
+				if ( Game.IsServer )
 				{
 
 					BroadcastSize( newSize );

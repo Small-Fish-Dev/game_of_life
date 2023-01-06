@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<AssemblyName>conway</AssemblyName>
 		<PackageId>conway</PackageId>
-		<LangVersion>10</LangVersion>
+		<LangVersion>11</LangVersion>
 		<NoWarn>1701;1702;1591;</NoWarn>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<DefineConstants>SANDBOX;DEBUG;TRACE</DefineConstants>
+		<DefineConstants>SANDBOX;ADDON;DEBUG</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,13 +20,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AdditionalFiles Include="**/*.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Using Include="Sandbox.Internal.GlobalGameNamespace" Static="true" />
 	</ItemGroup>
 
   <PropertyGroup>
-	<OutputPath>../.vs/output/</OutputPath>
-	<DocumentationFile>../.vs/output/conway.xml</DocumentationFile>
-	<RootNamespace>GameOfLife</RootNamespace>
+	<OutputPath>..\..\../.vs/output/</OutputPath>
+	<DocumentationFile>..\..\../.vs/output/conway.xml</DocumentationFile>
+	<RootNamespace>Sandbox</RootNamespace>
+	<Nullable>disable</Nullable>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -40,7 +45,8 @@
 	</ItemGroup>
 
   <ItemGroup>
-<ProjectReference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\base\code\base.csproj" />
+		<ProjectReference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\base\code\base.csproj" />
+
   </ItemGroup>
 
 </Project>

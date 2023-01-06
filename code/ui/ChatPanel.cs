@@ -87,7 +87,7 @@ namespace GameOfLife
 			Input.AcceptsFocus = true;
 			Input.AllowEmojiReplace = false; //Emojies would stick out too much with the font
 
-			Sandbox.Hooks.Chat.OnOpenChat += Open;
+			//Sandbox.Hooks.Chat.OnOpenChat += Open;
 
 		}
 
@@ -138,7 +138,7 @@ namespace GameOfLife
 		public static void AddChatLog( string name, string message, string button )
 		{
 
-			if ( !Global.IsListenServer )
+			if ( !Game.IsListenServer )
 			{
 
 				Log.Info( $"{name} {message} {button}" );
@@ -201,7 +201,7 @@ namespace GameOfLife
 		public static void AddChatMsg( string name, string message )
 		{
 
-			if ( !Global.IsListenServer )
+			if ( !Game.IsListenServer )
 			{
 
 				Log.Info( $"{name}: {message}" );
@@ -220,7 +220,7 @@ namespace GameOfLife
 		public static void Say( string message )
 		{
 
-			Assert.NotNull( ConsoleSystem.Caller );
+			if ( ConsoleSystem.Caller == null ) return;
 			string output = RemoveDiacritics( message );
 			Log.Info( output );
 			SendChatMsg( ConsoleSystem.Caller.Name, output );

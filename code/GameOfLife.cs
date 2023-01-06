@@ -8,7 +8,7 @@ using System.Runtime;
 namespace GameOfLife
 {
 
-	public partial class GameOfLife : Sandbox.Game
+	public partial class GameOfLife : GameManager
 	{
 
 		public static HUD GameHUD;
@@ -18,7 +18,7 @@ namespace GameOfLife
 		public GameOfLife()
 		{
 
-			if ( IsServer )
+			if ( Game.IsServer )
 			{
 
 				LoadHUD();
@@ -34,7 +34,7 @@ namespace GameOfLife
 		public static void LoadHUD()
 		{
 
-			if( Host.IsServer )
+			if( Game.IsServer )
 			{
 
 				if ( GameHUD != null )
@@ -50,7 +50,7 @@ namespace GameOfLife
 
 		}
 
-		public override void ClientJoined( Client client )
+		public override void ClientJoined( IClient client )
 		{
 
 			CellGrid.BroadcastGrid( To.Single( client ), Pattern.ToString( CellGrid.Cells ) );
@@ -71,7 +71,7 @@ namespace GameOfLife
 
 		}
 
-		public override void ClientDisconnect( Client client, NetworkDisconnectionReason reason )
+		public override void ClientDisconnect( IClient client, NetworkDisconnectionReason reason )
 		{
 
 			ChatPanel.SendChatLog( $"{client.Name} has left." );
